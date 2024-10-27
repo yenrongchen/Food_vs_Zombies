@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;  
 
 public class PlayerController : MonoBehaviour
@@ -14,7 +15,10 @@ public class PlayerController : MonoBehaviour
     private float directionY = 0;
 
     [SerializeField]
-    private bool isInfrontOfFood;
+    private bool CanTake;
+
+    [SerializeField]
+    private bool CanDiscard;
 
     private bool isTaking;
 
@@ -25,7 +29,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isTaking = false;
-        isInfrontOfFood = false;
+        CanTake = false;
+        CanDiscard = false;
 
         rbody2D = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -39,17 +44,20 @@ public class PlayerController : MonoBehaviour
         directionY = Input.GetAxisRaw("Vertical");
         rbody2D.velocity = new Vector2(directionX * walkSpeed, directionY * walkSpeed);
 
+        // reflect the sprites when switching direction
         if (directionX * this.transform.localScale.x > 0)
         {
             this.transform.localScale = new Vector3(-1 * this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
         }
 
-        if (Input.GetKey(KeyCode.F) && isTaking == false && isInfrontOfFood == true)
+        // enable take animation
+        if (Input.GetKey(KeyCode.F) && isTaking == false && CanTake == true)
         {
             isTaking = true;
         }
 
-        if (Input.GetKey(KeyCode.G) && isTaking == true)
+        // disable take animetion
+        if (Input.GetKey(KeyCode.G) && isTaking == true && CanDiscard == true)
         {
             isTaking = false;
         }
@@ -76,19 +84,39 @@ public class PlayerController : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
+    // enable take & discard function
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.name == "RiceBox" || other.name == "MeatBox" || other.name == "VegetableBox")
+        if (other.gameObject.tag == "CanTake")
         {
-            isInfrontOfFood = true;
+            CanTake = true;
+        }
+        else if(other.gameObject.tag == "CanDiscard")
+        {
+            CanDiscard = true;
+        }
+        else if(other.gameObject.tag == "CanBoth")
+        {
+            CanTake = true;
+            CanDiscard = true;
         }
     }
 
+    // disable take & discard function
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "RiceBox" || other.name == "MeatBox" || other.name == "VegetableBox")
+        if (other.gameObject.tag == "CanTake")
         {
-            isInfrontOfFood = false;
+            CanTake = false;
+        }
+        else if (other.gameObject.tag == "CanDiscard")
+        {
+            CanDiscard = false;
+        }
+        else if (other.gameObject.tag == "CanBoth")
+        {
+            CanTake = false;
+            CanDiscard = false;
         }
     }
 }
