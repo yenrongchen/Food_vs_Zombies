@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.name == "RiceBox")
+        if (other.name == "RiceBox" || other.name == "MeatBox" || other.name == "VegetableBox")
         {
             isInfrontOfFood = true;
         }
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.name == "RiceBox")
+        if (other.name == "RiceBox" || other.name == "MeatBox" || other.name == "VegetableBox")
         {
             isInfrontOfFood = false;
         }
