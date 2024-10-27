@@ -1,26 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEngine;  
+using UnityEngine;
+
+public enum Food
+{
+    none,
+    rice,
+    meat,
+    vege,
+    cookedRice,
+    cookedMeat,
+    cookedVege,
+    choppedMeat,
+    choppedVege,
+    cookedChoppedMeat,
+    cookedChoppedVege,
+    salad,
+    sashimi,
+    riceBall,
+    vegeMealBox,
+    friedMeatVege,
+    friedRice
+}
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float walkSpeed = 2f;
 
-    [SerializeField]
     private float directionX = 0;
 
-    [SerializeField]
     private float directionY = 0;
 
-    [SerializeField]
-    private bool CanTake;
-
-    [SerializeField]
-    private bool CanDiscard;
-
     private bool isTaking;
+
+    [SerializeField]
+    private Food currentTaking;
 
     private Animator animator;
     private Rigidbody2D rbody2D;
@@ -29,8 +45,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isTaking = false;
-        CanTake = false;
-        CanDiscard = false;
+        currentTaking = Food.none;
 
         rbody2D = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -48,18 +63,6 @@ public class PlayerController : MonoBehaviour
         if (directionX * this.transform.localScale.x > 0)
         {
             this.transform.localScale = new Vector3(-1 * this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-        }
-
-        // enable take animation
-        if (Input.GetKey(KeyCode.F) && isTaking == false && CanTake == true)
-        {
-            isTaking = true;
-        }
-
-        // disable take animetion
-        if (Input.GetKey(KeyCode.G) && isTaking == true && CanDiscard == true)
-        {
-            isTaking = false;
         }
 
         // player animation
@@ -87,36 +90,48 @@ public class PlayerController : MonoBehaviour
     // enable take & discard function
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "CanTake")
+        if (other.gameObject.tag == "CanTake")  //  taking rice from RiceBox
         {
-            CanTake = true;
+            if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
+            {
+                currentTaking = other.gameObject.GetComponent<IngredientsController>().GetItem();
+            }
         }
-        else if(other.gameObject.tag == "CanDiscard")
+        else if (other.name == "TrashCan")  //  throw away to TrashCan
         {
-            CanDiscard = true;
+            if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
+            {
+                isTaking = false;
+                currentTaking = Food.none;
+                GameObject.Find("SpawnPoint").GetComponent<SpawnPointController>().DestoryItem();
+
+                return;
+            }
         }
-        else if(other.gameObject.tag == "CanBoth")
+        else if (other.name == "CookingAreaRice")  //  putting rice into CookingAreaRice
         {
-            CanTake = true;
-            CanDiscard = true;
+            if (Input.GetKey(KeyCode.Mouse1) && currentTaking == Food.rice && other.gameObject.GetComponent<CookingAreaRiceController>().IsEmpty() 
+                && !other.gameObject.GetComponent<CookingAreaRiceController>().IsWorking())
+            {
+                other.gameObject.GetComponent<CookingAreaRiceController>().StartWorking();
+
+                isTaking = false;
+                currentTaking = Food.none;
+
+                return;
+            }
+        }
+
+
+        if(currentTaking != Food.none && isTaking == false)
+        {
+            isTaking = true;
+            GameObject.Find("SpawnPoint").GetComponent<SpawnPointController>().SpawnItem(currentTaking);
         }
     }
 
     // disable take & discard function
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "CanTake")
-        {
-            CanTake = false;
-        }
-        else if (other.gameObject.tag == "CanDiscard")
-        {
-            CanDiscard = false;
-        }
-        else if (other.gameObject.tag == "CanBoth")
-        {
-            CanTake = false;
-            CanDiscard = false;
-        }
     }
 }
