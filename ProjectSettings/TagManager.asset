@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CanTake
+  - CanDiscard
+  - CanBoth
   layers:
   - Default
   - TransparentFX
@@ -40,4 +43,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 2004652465
+    locked: 0
+  - name: Player
+    uniqueID: 1770630191
+    locked: 0
+  - name: Ingredient
+    uniqueID: 3855695265
+    locked: 0
+  - name: dish
+    uniqueID: 2034546017
     locked: 0
