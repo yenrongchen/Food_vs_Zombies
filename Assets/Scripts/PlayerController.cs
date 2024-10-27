@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float directionY = 0;
 
+    [SerializeField]
+    private bool isInfrontOfFood;
+
     private bool isTaking;
 
     private Animator animator;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isTaking = false;
+        isInfrontOfFood = false;
 
         rbody2D = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -40,7 +44,7 @@ public class PlayerController : MonoBehaviour
             this.transform.localScale = new Vector3(-1 * this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
         }
 
-        if (Input.GetKey(KeyCode.F) && isTaking == false)
+        if (Input.GetKey(KeyCode.F) && isTaking == false && isInfrontOfFood == true)
         {
             isTaking = true;
         }
@@ -66,6 +70,25 @@ public class PlayerController : MonoBehaviour
         else                                                                // turn to stand
         {
             animator.SetInteger("PlayerState", 0);
+        }
+
+        // make sure player dont tilt because of rbody2D
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.name == "RiceBox")
+        {
+            isInfrontOfFood = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.name == "RiceBox")
+        {
+            isInfrontOfFood = false;
         }
     }
 }
