@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class CookingAreaController : MonoBehaviour
@@ -23,6 +24,17 @@ public class CookingAreaController : MonoBehaviour
     private GameObject[] ItemChopped;
 
     private int isAboutMeat;
+
+    [SerializeField]
+    private float TIMEINTERVALCOOKRICE = 8;
+    [SerializeField]
+    private float TIMEINTERVALCOOK = 8;
+    [SerializeField]
+    private float TIMEINTERVALCHOP = 8;
+
+    private float timeIntervalCookRice;
+    private float timeIntervalCook;
+    private float timeIntervalChop;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +42,10 @@ public class CookingAreaController : MonoBehaviour
         isWorking = false;
 
         CurrentOffering = null;
+
+        timeIntervalChop = TIMEINTERVALCHOP;
+        timeIntervalCook = TIMEINTERVALCOOK;
+        timeIntervalCookRice = TIMEINTERVALCOOKRICE;
     }
 
     // Update is called once per frame
@@ -41,22 +57,43 @@ public class CookingAreaController : MonoBehaviour
 
             if(this.name == "CookingAreaRice")
             {
-                CurrentOffering = Instantiate(ItemCookedRice, this.transform.position, this.transform.rotation);
+                timeIntervalCookRice -= Time.deltaTime;
+                if(timeIntervalCookRice <= 0)
+                {
+                    isWorking = false;
+                    isEmpty = false;
+                    timeIntervalCookRice = TIMEINTERVALCOOKRICE;
+                    CurrentOffering = Instantiate(ItemCookedRice, this.transform.position, this.transform.rotation);
+                }
             }
             else if(this.name == "CookingArea")
             {
-                CurrentOffering = Instantiate(ItemCookedChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+                timeIntervalCook -= Time.deltaTime;
+                if (timeIntervalCook <= 0)
+                {
+                    isWorking = false;
+                    isEmpty = false;
+                    timeIntervalCook = TIMEINTERVALCOOK;
+                    CurrentOffering = Instantiate(ItemCookedChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+                }
             }
             else
             {
-                CurrentOffering = Instantiate(ItemChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+                timeIntervalChop -= Time.deltaTime;
+                if (timeIntervalChop <= 0)
+                {
+                    isWorking = false;
+                    isEmpty = false;
+                    timeIntervalChop = TIMEINTERVALCHOP;
+                    CurrentOffering = Instantiate(ItemChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+                }
             }
 
-            CurrentOffering.GetComponent<PrefabFollower>().SetIsNotFollow();
-            CurrentOffering.transform.position = this.transform.position;
-
-            isWorking = false;
-            isEmpty = false;
+            if (CurrentOffering != null)
+            {
+                CurrentOffering.GetComponent<PrefabFollower>().SetIsNotFollow();
+                CurrentOffering.transform.position = this.transform.position;
+            }
         }
     }
 
@@ -122,7 +159,6 @@ public class CookingAreaController : MonoBehaviour
     {
         if(CurrentOffering == null)
         {
-            print("error in CookingController");
             return null;
         }
 
@@ -130,5 +166,10 @@ public class CookingAreaController : MonoBehaviour
         isEmpty = true;
 
         return CurrentOffering;
+    }
+
+    public void SetCurrentOfferingToNullAfterGetItem()
+    {
+        CurrentOffering = null;
     }
 }

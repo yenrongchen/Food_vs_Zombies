@@ -131,6 +131,10 @@ public class PlayerController : MonoBehaviour
                 && !other.gameObject.GetComponent<CookingAreaController>().IsWorking())
             {
                 CurrentTaking = other.gameObject.GetComponent<CookingAreaController>().GetItem();
+                if (CurrentTaking != null)
+                {
+                    other.gameObject.GetComponent<CookingAreaController>().SetCurrentOfferingToNullAfterGetItem();
+                }
             }
         }
         else if(other.name == "CombineArea")
@@ -152,6 +156,14 @@ public class PlayerController : MonoBehaviour
                     CurrentTaking = null;
 
                     return;
+                }
+            }
+            else if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
+            {
+                CurrentTaking = other.gameObject.GetComponent<CombineAreaController>().GetItem();
+                if (CurrentTaking != null)
+                {
+                    other.gameObject.GetComponent<CombineAreaController>().SetCurrentOfferingToNullAfterGetItem();
                 }
             }
         }

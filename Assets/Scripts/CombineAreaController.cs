@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Food
@@ -216,6 +217,28 @@ public class CombineAreaController : MonoBehaviour
         CurrentOffering.transform.position = this.transform.position;
 
         return SUCCESS;
+    }
+
+    public GameObject GetItem()
+    {
+        if (CurrentOffering == null)
+        {
+            return null;
+        }
+
+        CurrentOffering.GetComponent<PrefabFollower>().SetIsFollow();
+        for (int i = 0; i < currentFoodOnTable.Length; i++)
+        {
+            currentFoodOnTable[i] = 0;
+        }
+
+
+        return CurrentOffering;
+    }
+
+    public void SetCurrentOfferingToNullAfterGetItem()
+    {
+        CurrentOffering = null;
     }
 
     private bool InputCookedRiceCheck()
