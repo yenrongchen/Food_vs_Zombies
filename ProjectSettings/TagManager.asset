@@ -7,7 +7,10 @@ TagManager:
   - CanTake
   - CanDiscard
   - CanBoth
+<<<<<<< HEAD
   - Enemy
+=======
+>>>>>>> feature_zombie
   layers:
   - Default
   - TransparentFX
