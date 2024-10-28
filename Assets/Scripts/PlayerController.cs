@@ -26,6 +26,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    const int SUCCESS_BUT_DONT_DESTORY = 1;
+    const int FAILED = 0;
+    const int SUCCESS = 2;
+
     [SerializeField]
     private float walkSpeed = 2f;
 
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private float directionY = 0;
 
+    [SerializeField]
     private bool isTaking;
 
     [SerializeField]
@@ -128,6 +133,28 @@ public class PlayerController : MonoBehaviour
                 CurrentTaking = other.gameObject.GetComponent<CookingAreaController>().GetItem();
             }
         }
+        else if(other.name == "CombineArea")
+        {
+            if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
+            {
+                int state = other.gameObject.GetComponent<CombineAreaController>().StartWorking(CurrentTaking);
+                if (state == SUCCESS)
+                {
+                    isTaking = false;
+                    Destroy(CurrentTaking);
+                    CurrentTaking = null;
+
+                    return;
+                }
+                else if(state == SUCCESS_BUT_DONT_DESTORY)
+                {
+                    isTaking = false;
+                    CurrentTaking = null;
+
+                    return;
+                }
+            }
+        }
 
 
         if(CurrentTaking != null && isTaking == false)
@@ -136,8 +163,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // disable take & discard function
-    private void OnTriggerExit2D(Collider2D other)
-    {
-    }
 }
