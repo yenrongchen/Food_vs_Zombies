@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186469060610110072}
   - component: {fileID: 2938288426679955934}
+  - component: {fileID: -5316019549469049549}
   m_Layer: 0
   m_Name: CuttingArea
   m_TagString: CanBoth
@@ -77,3 +78,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
+--- !u!114 &-5316019549469049549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969462810585276049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df4ac75e548ca740b3b73ce9eda6127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEmpty: 1
+  isWorking: 0
+  CurrentOffering: {fileID: 0}
+  ItemCookedRice: {fileID: 5880541191915320417, guid: 1d8a84ff4dc468f459ea2b873e80b38b, type: 3}
+  ItemCookedChopped:
+  - {fileID: 5259951856292667979, guid: 803eda2531e84aa42982391a232dcdf1, type: 3}
+  - {fileID: 5349625487646329555, guid: 27351ebd4e9eec24e9145b540e96c1d1, type: 3}
+  ItemChopped:
+  - {fileID: 2466638236254339439, guid: 56821d153f12b8e4893e8ba1fef47b68, type: 3}
+  - {fileID: 2412462084272753904, guid: f76dfc3ef5886c14f8d6c24b91e873fc, type: 3}

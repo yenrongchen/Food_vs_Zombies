@@ -6,38 +6,56 @@ public class IngredientsController : MonoBehaviour
 {
     [SerializeField]
     private bool isEmpty = false;
+
+    [SerializeField]
+    private GameObject ItemRice;
+
+    [SerializeField]
+    private GameObject ItemMeat;
+
+    [SerializeField]
+    private GameObject ItemVege;
+
+    [SerializeField]
+    private GameObject CurrentOffering;
+
     // Start is called before the first frame update
     void Start()
     {
         isEmpty = false;
+
+        CurrentOffering = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print((int)Food.meat);
+        
     }
 
-    public Food GetItem()
+    public GameObject GetItem()
     {
         if (isEmpty)
         {
-            return Food.none;
+            return null;
         }
 
-        isEmpty = true;
+        isEmpty = false;
 
         if(this.name == "RiceBox")
         {
-            return Food.rice;
+            CurrentOffering = Instantiate(ItemRice, this.transform.position, this.transform.rotation);
         }
         else if(this.name == "MeatBox")
         {
-            return Food.meat;
+            CurrentOffering = Instantiate(ItemMeat, this.transform.position, this.transform.rotation);
         }
         else
         {
-            return Food.vege;
+            CurrentOffering = Instantiate(ItemVege, this.transform.position, this.transform.rotation);
         }
+
+        CurrentOffering.GetComponent<PrefabFollower>().SetIsFollow();
+        return CurrentOffering;
     }
 }

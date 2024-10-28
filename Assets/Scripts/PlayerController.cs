@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum Food
+/*public enum Food
 {
     none,
     rice,
@@ -22,7 +22,7 @@ public enum Food
     vegeMealBox,
     friedMeatVege,
     friedRice
-}
+}*/
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool isTaking;
 
     [SerializeField]
-    private Food currentTaking;
+    private GameObject CurrentTaking;
 
     private Animator animator;
     private Rigidbody2D rbody2D;
@@ -45,14 +45,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isTaking = false;
-        currentTaking = Food.none;
+        CurrentTaking = null;
 
         rbody2D = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // player movement
         directionX = Input.GetAxisRaw("Horizontal");
@@ -90,11 +90,11 @@ public class PlayerController : MonoBehaviour
     // enable take & discard function
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "CanTake")  //  taking rice from RiceBox
+        if (other.gameObject.tag == "CanTake")  //  taking Ingredients from boxes
         {
             if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
             {
-                currentTaking = other.gameObject.GetComponent<IngredientsController>().GetItem();
+                CurrentTaking = other.gameObject.GetComponent<IngredientsController>().GetItem();
             }
         }
         else if (other.name == "TrashCan")  //  throw away to TrashCan
@@ -102,31 +102,37 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
             {
                 isTaking = false;
-                currentTaking = Food.none;
-                GameObject.Find("SpawnPoint").GetComponent<SpawnPointController>().DestoryItem();
+                Destroy(CurrentTaking);
+                CurrentTaking = null;
 
                 return;
             }
         }
-        else if (other.name == "CookingAreaRice")  //  putting rice into CookingAreaRice
+        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea")  //  put Food to cook areas
         {
-            if (Input.GetKey(KeyCode.Mouse1) && currentTaking == Food.rice && other.gameObject.GetComponent<CookingAreaRiceController>().IsEmpty() 
-                && !other.gameObject.GetComponent<CookingAreaRiceController>().IsWorking())
+            if (Input.GetKey(KeyCode.Mouse1) && isTaking == true && other.gameObject.GetComponent<CookingAreaController>().IsEmpty() 
+                && !other.gameObject.GetComponent<CookingAreaController>().IsWorking())
             {
-                other.gameObject.GetComponent<CookingAreaRiceController>().StartWorking();
+                if ( other.gameObject.GetComponent<CookingAreaController>().StartWorking(CurrentTaking) )
+                {
+                    isTaking = false;
+                    Destroy(CurrentTaking);
+                    CurrentTaking = null;
 
-                isTaking = false;
-                currentTaking = Food.none;
-
-                return;
+                    return;
+                }
+            }                                                                     //  take food from cook areas
+            else if(Input.GetKey(KeyCode.Mouse0) && isTaking == false && !other.gameObject.GetComponent<CookingAreaController>().IsEmpty()
+                && !other.gameObject.GetComponent<CookingAreaController>().IsWorking())
+            {
+                CurrentTaking = other.gameObject.GetComponent<CookingAreaController>().GetItem();
             }
         }
 
 
-        if(currentTaking != Food.none && isTaking == false)
+        if(CurrentTaking != null && isTaking == false)
         {
             isTaking = true;
-            GameObject.Find("SpawnPoint").GetComponent<SpawnPointController>().SpawnItem(currentTaking);
         }
     }
 

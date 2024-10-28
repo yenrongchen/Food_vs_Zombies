@@ -53,6 +53,9 @@ TagManager:
   - name: Ingredient
     uniqueID: 3855695265
     locked: 0
-  - name: dish
+  - name: Food
     uniqueID: 2034546017
+    locked: 0
+  - name: Dish
+    uniqueID: 4230875945
     locked: 0

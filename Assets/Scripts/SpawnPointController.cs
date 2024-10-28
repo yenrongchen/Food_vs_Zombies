@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class SpawnPointController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject Item;
-
-    [SerializeField]
-    private GameObject CurrentItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,16 +21,4 @@ public class SpawnPointController : MonoBehaviour
         return new Vector2(this.transform.position.x, this.transform.position.y); 
     }
 
-    public void SpawnItem(Food currentTaking)
-    {
-        if(currentTaking == Food.rice)
-        {
-            CurrentItem = Instantiate(Item, this.transform.position, this.transform.rotation);
-        }
-    }
-
-    public void DestoryItem()
-    {
-        Destroy(CurrentItem);
-    }
 }
