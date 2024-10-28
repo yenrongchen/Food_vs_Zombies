@@ -14,9 +14,7 @@ public class ZombieController : MonoBehaviour
     [SerializeField]
     private float attack = 4f;
 
-    [SerializeField]
     private Animator animator;
-
     private float hpThreshold;
     private bool isWalking = true;
     private bool isEating = false;
