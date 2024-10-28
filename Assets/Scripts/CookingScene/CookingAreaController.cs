@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class CookingAreaController : MonoBehaviour
 {
-    [SerializeField]
     private bool isEmpty = true;
-
-    [SerializeField]
     private bool isWorking = false;
 
-    [SerializeField]
     private GameObject CurrentOffering;
 
     [SerializeField]
@@ -35,6 +31,11 @@ public class CookingAreaController : MonoBehaviour
     private float timeIntervalCookRice;
     private float timeIntervalCook;
     private float timeIntervalChop;
+
+    [SerializeField]
+    private GameObject Canvas;
+
+    private GameObject FatherBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,8 @@ public class CookingAreaController : MonoBehaviour
         isWorking = false;
 
         CurrentOffering = null;
+
+        FatherBar = null;
 
         timeIntervalChop = TIMEINTERVALCHOP;
         timeIntervalCook = TIMEINTERVALCOOK;
@@ -53,39 +56,72 @@ public class CookingAreaController : MonoBehaviour
     {
         if (isWorking && isEmpty)
         {
-            // start operating
+            // start operating each type of working area
 
-            if(this.name == "CookingAreaRice")
+            if(this.name == "CookingAreaRice" || this.name == "CookingAreaRice (1)")  //  pot start working
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALCOOKRICE);
+                }
+
                 timeIntervalCookRice -= Time.deltaTime;
-                if(timeIntervalCookRice <= 0)
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalCookRice);
+                if (timeIntervalCookRice <= 0)
                 {
                     isWorking = false;
                     isEmpty = false;
                     timeIntervalCookRice = TIMEINTERVALCOOKRICE;
                     CurrentOffering = Instantiate(ItemCookedRice, this.transform.position, this.transform.rotation);
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
-            else if(this.name == "CookingArea")
+            else if(this.name == "CookingArea" || this.name == "CookingArea (1)")  // pan start working
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALCOOK);
+                }
+
                 timeIntervalCook -= Time.deltaTime;
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalCook);
                 if (timeIntervalCook <= 0)
                 {
                     isWorking = false;
                     isEmpty = false;
                     timeIntervalCook = TIMEINTERVALCOOK;
                     CurrentOffering = Instantiate(ItemCookedChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
-            else
+            else                                                                // knife start working
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALCHOP);
+                }
+
                 timeIntervalChop -= Time.deltaTime;
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalChop);
                 if (timeIntervalChop <= 0)
                 {
                     isWorking = false;
                     isEmpty = false;
                     timeIntervalChop = TIMEINTERVALCHOP;
                     CurrentOffering = Instantiate(ItemChopped[isAboutMeat], this.transform.position, this.transform.rotation);
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
 
@@ -106,9 +142,9 @@ public class CookingAreaController : MonoBehaviour
         return isWorking;
     }
 
-    public bool StartWorking(GameObject InputFood)
+    public bool StartWorking(GameObject InputFood)   //  return true if the working area really takes the food and start working
     {
-        if (this.name == "CookingAreaRice")
+        if (this.name == "CookingAreaRice" || this.name == "CookingAreaRice (1)")
         {
             if(InputFood.name == "Rice(Clone)")
             {
@@ -117,7 +153,7 @@ public class CookingAreaController : MonoBehaviour
                 return true;
             }
         }
-        else if (this.name == "CookingArea")
+        else if (this.name == "CookingArea" || this.name == "CookingArea (1)")
         {
             if (InputFood.name == "ChoppedMeat(Clone)")
             {

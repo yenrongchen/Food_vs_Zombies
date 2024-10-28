@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class IngredientsController : MonoBehaviour
 {
-    [SerializeField]
     private bool isEmpty = false;
 
     [SerializeField]
@@ -16,8 +15,12 @@ public class IngredientsController : MonoBehaviour
     [SerializeField]
     private GameObject ItemVege;
 
-    [SerializeField]
     private GameObject CurrentOffering;
+
+    [SerializeField] 
+    private GameObject Canvas;
+
+    private GameObject FatherBar;
 
     [SerializeField]
     private float TIMEINTERVALRICE = 8;
@@ -36,6 +39,7 @@ public class IngredientsController : MonoBehaviour
         isEmpty = false;
 
         CurrentOffering = null;
+        FatherBar = null;
 
         timeIntervalRice = TIMEINTERVALRICE;
         timeIntervalMeat = TIMEINTERVALMEAT;
@@ -45,33 +49,66 @@ public class IngredientsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isEmpty)  //  start count down to respone ingredient
+        if (isEmpty)  //  start count down to respawn ingredient
         {
-            if (this.name == "RiceBox")
+            if (this.name == "RiceBox")                             // respawn rice
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALRICE);
+                }
+
                 timeIntervalRice -= Time.deltaTime;
-                if(timeIntervalRice <= 0)
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalRice);
+                if (timeIntervalRice <= 0)
                 {
                     timeIntervalRice = TIMEINTERVALRICE;
                     isEmpty = false;
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
-            else if (this.name == "MeatBox")
+            else if (this.name == "MeatBox")                    // respawn meat
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALMEAT);
+                }
+
                 timeIntervalMeat -= Time.deltaTime;
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalMeat);
                 if (timeIntervalMeat <= 0)
                 {
                     timeIntervalMeat = TIMEINTERVALMEAT;
                     isEmpty = false;
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
-            else
+            else                                              // respawn vegetable
             {
+                if (FatherBar == null)
+                {
+                    FatherBar = Instantiate(Canvas, this.transform);
+
+                    FatherBar.GetComponentInChildren<ProgressBarController>().SetMaxVal(TIMEINTERVALVEGE);
+                }
+
                 timeIntervalVege -= Time.deltaTime;
+                FatherBar.GetComponentInChildren<ProgressBarController>().SetProgress(timeIntervalVege);
                 if (timeIntervalVege <= 0)
                 {
                     timeIntervalVege = TIMEINTERVALVEGE;
                     isEmpty = false;
+
+                    Destroy(FatherBar);
+                    FatherBar = null;
                 }
             }
         }
@@ -101,5 +138,10 @@ public class IngredientsController : MonoBehaviour
 
         CurrentOffering.GetComponent<PrefabFollower>().SetIsFollow();
         return CurrentOffering;
+    }
+
+    public void SetCurrentOfferingToNullAfterGetItem()
+    {
+        CurrentOffering = null;
     }
 }

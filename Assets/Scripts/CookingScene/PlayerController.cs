@@ -3,29 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-/*public enum Food
-{
-    none,
-    rice,
-    meat,
-    vege,
-    cookedRice,
-    cookedMeat,
-    cookedVege,
-    choppedMeat,
-    choppedVege,
-    cookedChoppedMeat,
-    cookedChoppedVege,
-    salad,
-    sashimi,
-    riceBall,
-    vegeMealBox,
-    friedMeatVege,
-    friedRice
-}*/
-
 public class PlayerController : MonoBehaviour
 {
+    // declare constant
     const int SUCCESS_BUT_DONT_DESTORY = 1;
     const int FAILED = 0;
     const int SUCCESS = 2;
@@ -37,10 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private float directionY = 0;
 
-    [SerializeField]
     private bool isTaking;
 
-    [SerializeField]
     private GameObject CurrentTaking;
 
     private Animator animator;
@@ -100,6 +78,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
             {
                 CurrentTaking = other.gameObject.GetComponent<IngredientsController>().GetItem();
+                if (CurrentTaking != null)
+                {
+                    other.gameObject.GetComponent<IngredientsController>().SetCurrentOfferingToNullAfterGetItem();
+                }
             }
         }
         else if (other.name == "TrashCan")  //  throw away to TrashCan
@@ -113,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
         }
-        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea")  //  put Food to cook areas
+        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea" && other.name != "CombineArea (1)" )//  put Food to cook areas
         {
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true && other.gameObject.GetComponent<CookingAreaController>().IsEmpty() 
                 && !other.gameObject.GetComponent<CookingAreaController>().IsWorking())
@@ -137,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else if(other.name == "CombineArea")
+        else if(other.name == "CombineArea" || other.name == "CombineArea (1)")   //  put food to combine area
         {
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
             {
@@ -157,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
                     return;
                 }
-            }
+            }                                                       //   take food from combine area
             else if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
             {
                 CurrentTaking = other.gameObject.GetComponent<CombineAreaController>().GetItem();
@@ -166,10 +148,24 @@ public class PlayerController : MonoBehaviour
                     other.gameObject.GetComponent<CombineAreaController>().SetCurrentOfferingToNullAfterGetItem();
                 }
             }
+        }                                                           // export food to outside to become a food man
+        else if(other.name == "ExportArea")
+        {
+            if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
+            {
+                if (other.gameObject.GetComponent<ExportAreaController>().ExportDish(CurrentTaking))
+                {
+                    isTaking = false;
+                    Destroy(CurrentTaking);
+                    CurrentTaking = null;
+
+                    return;
+                }
+            }
         }
 
 
-        if(CurrentTaking != null && isTaking == false)
+        if(CurrentTaking != null && isTaking == false)   // in order to set the correct animation for update func
         {
             isTaking = true;
         }

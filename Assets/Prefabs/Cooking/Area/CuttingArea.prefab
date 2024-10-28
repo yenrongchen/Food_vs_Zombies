@@ -100,3 +100,8 @@ MonoBehaviour:
   ItemChopped:
   - {fileID: 2466638236254339439, guid: 56821d153f12b8e4893e8ba1fef47b68, type: 3}
   - {fileID: 2412462084272753904, guid: f76dfc3ef5886c14f8d6c24b91e873fc, type: 3}
+  TIMEINTERVALCOOKRICE: 8
+  TIMEINTERVALCOOK: 8
+  TIMEINTERVALCHOP: 8
+  Canvas: {fileID: 6969598996284911780, guid: cddebfa62ff959d498af3f02f797ad89, type: 3}
+  FatherBar: {fileID: 0}

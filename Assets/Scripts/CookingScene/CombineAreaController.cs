@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// for numerical usage, save time by using array
 public enum Food
 {
     cookedRice,
@@ -19,15 +20,14 @@ public enum Food
 
 public class CombineAreaController : MonoBehaviour
 {
+    // declare some constant
     const int SUCCESS_BUT_DONT_DESTORY = 1;
     const int FAILED = 0;
     const int SUCCESS = 2;
     const int DISTANCE = 5;
 
-    [SerializeField]
     private int[] currentFoodOnTable = new int[5];
 
-    [SerializeField]
     private GameObject CurrentOffering;
 
     [SerializeField]
@@ -52,6 +52,9 @@ public class CombineAreaController : MonoBehaviour
         
     }
 
+    // return 0 if refuse to take in the food, 1 if take origin(transfer the ownership), 2 if to generate a new one and destroy the origin
+    // key points is to memo the current ingredients or food on the combine table
+    // base on the memo to tell if the player can put the food in
     public int StartWorking(GameObject InputFood)
     {
         switch (InputFood.name)
@@ -158,7 +161,7 @@ public class CombineAreaController : MonoBehaviour
         { 
             changed = false;
 
-            return refresh(InputFood);
+            return Refresh(InputFood);
         }
         else
         {
@@ -166,7 +169,8 @@ public class CombineAreaController : MonoBehaviour
         }
     }
 
-    private int refresh(GameObject InputFood)
+    // after we made amemo, we need to update the outcome dish
+    private int Refresh(GameObject InputFood)
     {
         if(CurrentOffering != null)
         {
@@ -181,11 +185,11 @@ public class CombineAreaController : MonoBehaviour
             if (currentFoodOnTable[i] == 1)
             {
                 numOfFood ++;
-                codeToDish += ((i + 1) * (i + 1));      // just to make codeToDish unique so we can if else it faster
+                codeToDish += ((i + 1) * (i + 1));    // just to make codeToDish unique so we can use it to get the specific dish faster
             }
         }
 
-        if(numOfFood == 1)
+        if(numOfFood == 1)                           // no need to create a new type of dish, just use the original one given by player
         {
             InputFood.GetComponent<PrefabFollower>().SetIsNotFollow();
             InputFood.transform.position = this.transform.position;
@@ -241,6 +245,7 @@ public class CombineAreaController : MonoBehaviour
         CurrentOffering = null;
     }
 
+    // all the checkers to tell if the player can put a specific food in the current combine table
     private bool InputCookedRiceCheck()
     {
         if (currentFoodOnTable[(int)Food.cookedRice] == 0 && currentFoodOnTable[(int)Food.choppedMeat] == 0
