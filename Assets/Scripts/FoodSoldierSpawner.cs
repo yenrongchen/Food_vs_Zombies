@@ -20,8 +20,8 @@ public class FoodSoldierSpawner : MonoBehaviour
 
     private void Start()
     {
-        // e.g. spawn a Friedrice
-        Spawn(friedrice);
+        // e.g. spawn a Sashimi
+        Spawn(sashimi);
     }
 
 

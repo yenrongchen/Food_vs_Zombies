@@ -7,10 +7,8 @@ TagManager:
   - CanTake
   - CanDiscard
   - CanBoth
-<<<<<<< HEAD
   - Enemy
-=======
->>>>>>> feature_zombie
+  - bullet-food
   layers:
   - Default
   - TransparentFX
