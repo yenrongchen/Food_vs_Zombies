@@ -34,35 +34,36 @@ public class ZombieController : MonoBehaviour
     void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
-        healthBarObj = Instantiate(healthBarPrefab, this.transform.position + new Vector3(0f, 0.85f, 0f), this.transform.rotation);
+        healthBarObj = Instantiate(healthBarPrefab, this.transform.position + new Vector3(-0.1f, 0.85f, 0f), this.transform.rotation);
         healthBarObj.GetComponent<ZombieHealthBar>().setMaxHP(maxHP);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         curHP = maxHP;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // moving
         if (isWalking)
         {
             this.transform.position -= new Vector3(speed * Time.deltaTime, 0f, 0f);
-            healthBarObj.transform.position -= new Vector3(speed * Time.deltaTime, 0f, 0f);
         }
 
+        // update health bar position
+        healthBarObj.transform.position = this.transform.position + new Vector3(-0.1f, 0.85f, 0f);
+
         // broke the arm
-        if (curHP <= maxHP / 2 && isWalking && !hasBrokenArm)
+        if (curHP <= maxHP / 2 && !hasBrokenArm)
         {
             if (isEating)
             {
-                animator.SetInteger("state", 3);
+                animator.SetInteger("state", 3);  // broken_eat
             }
             else 
             {
-                animator.SetInteger("state", 1);
+                animator.SetInteger("state", 1);  // broken_walk
             }
             
             Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
@@ -83,24 +84,32 @@ public class ZombieController : MonoBehaviour
                 animator.SetInteger("state", 4);
             }
             
-            Destroy(this.gameObject, 1.5f);
-            Destroy(healthBarObj, 1f);  // both 1.5 seccond or differ?
+            Destroy(this.gameObject, 2f);
+            Destroy(healthBarObj, 2f);
 
-            Instantiate(headPrefab, this.transform.position + new Vector3(0.05f, 0.15f, 0f), this.transform.rotation);
+            Instantiate(headPrefab, this.transform.position + new Vector3(-0.05f, 0.21f, 0f), this.transform.rotation);
             hasBrokenHead = true;
+        }
+
+        if (this.transform.position.x < -5.15)
+        {
+            // Game over
         }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "bullet-food")  // hit by food bullets
+        if (other.gameObject.tag == "FoodBullet")  // hit by food bullets
         {
-            float dmg = 10;  // change bullet damage here
-            curHP -= dmg;
-            curHP = Mathf.Clamp(curHP, 0, maxHP);
-            healthBarObj.GetComponent<ZombieHealthBar>().getDamaged(dmg);
+            if (this.transform.position.x <= 8.8)
+            {
+                float dmg = 10;  // change bullet damage here
+                curHP -= dmg;
+                curHP = Mathf.Clamp(curHP, 0, maxHP);
+                healthBarObj.GetComponent<ZombieHealthBar>().getDamaged(dmg);
+            }
         }
-        else if (other.gameObject.tag == "food")  // start attacking
+        else if (other.gameObject.tag == "FoodSoldier")  // start attacking
         {
             isWalking = false;
             isEating = true;

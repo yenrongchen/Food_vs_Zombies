@@ -8,7 +8,8 @@ TagManager:
   - CanDiscard
   - CanBoth
   - Enemy
-  - bullet-food
+  - FoodBullet
+  - FoodSoldier
   layers:
   - Default
   - TransparentFX
@@ -63,4 +64,16 @@ TagManager:
     locked: 0
   - name: DishTop
     uniqueID: 1942659285
+    locked: 0
+  - name: New Layer 7
+    uniqueID: 2044660205
+    locked: 0
+  - name: New Layer 8
+    uniqueID: 1414837795
+    locked: 0
+  - name: Zombie
+    uniqueID: 3342225949
+    locked: 0
+  - name: Part
+    uniqueID: 2797117863
     locked: 0
