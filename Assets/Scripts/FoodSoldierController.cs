@@ -78,7 +78,7 @@ public class FoodSoldier : MonoBehaviour
     // fire a bullet
     private void FireBullet()
     {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, new Vector2(this.transform.position.x + 0.25f, this.transform.position.y + 0.2f), Quaternion.identity);
         bullet.GetComponent<Bullet>().Initialize(penetration);
     }
 
