@@ -4,6 +4,9 @@ using UnityEngine;
 public class FoodSoldier : MonoBehaviour
 {
     [SerializeField]
+    private float waitTimeConst = 100f;
+
+    [SerializeField]
     private FoodSoldierData statData; // the one spawner use to spawn a food
 
     [SerializeField]
@@ -12,15 +15,16 @@ public class FoodSoldier : MonoBehaviour
     [SerializeField]
     private GameObject healthBarPrefab;
 
-    private FoodSoldierHealthBar healthBar;
+    private Tile _tile;
+    private HealthBar healthBar;
     private Animator animator;
-    private int maxHp;
-    private int curHp;
-    private int atk;
+    private float maxHp;
+    private float curHp;
+    private float atk;
     private float atkSpeed;
     private bool penetration;
 
-    public void Initialize(FoodSoldierData newStat)
+    public void Initialize(FoodSoldierData newStat, Tile tile)
     {
         // get stats form the FoodSoldierData
         statData = newStat;
@@ -31,16 +35,19 @@ public class FoodSoldier : MonoBehaviour
         penetration = statData.stat.penetration;
         animator.runtimeAnimatorController = statData.animatorController;
 
+        _tile = tile;
+
         // spawn a health bar
         GameObject healthBarGameObject = Instantiate(healthBarPrefab);
         healthBarGameObject.transform.position = transform.position + new Vector3(-0.8f, 1, 0); // set bar above head
-        healthBar = healthBarGameObject.GetComponent<FoodSoldierHealthBar>(); // get the FoodSoldierHealthBar class
+        healthBar = healthBarGameObject.GetComponent<HealthBar>(); // get the FoodSoldierHealthBar class
     }
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
     }
+
 
     private void Start()
     {
@@ -55,14 +62,14 @@ public class FoodSoldier : MonoBehaviour
             animator.SetTrigger("Shoot");
 
             yield return StartCoroutine(Attack()); // wait until one attack finished
-            yield return new WaitForSeconds(100 / atkSpeed); // wait between attacks
+            yield return new WaitForSeconds(waitTimeConst / atkSpeed); // wait between attacks
         }
     }
 
     // one attack
     private IEnumerator Attack()
     {
-        int bulletCnt = atk / 10; // total number of bullets
+        int bulletCnt = (int)atk / 10; // total number of bullets
         float interval = 0.6f / bulletCnt;
 
         yield return new WaitForSeconds(0.6f); // (hold the gun up)
@@ -78,21 +85,35 @@ public class FoodSoldier : MonoBehaviour
     // fire a bullet
     private void FireBullet()
     {
-        GameObject bullet = Instantiate(bulletPrefab, new Vector2(this.transform.position.x + 0.25f, this.transform.position.y + 0.2f), Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().Initialize(penetration);
     }
 
-    public void Hurt(int damage)
+    public void Hurt(float damage)
     {
         curHp -= damage;
-        healthBar.SetHealthBar((float)curHp / maxHp);
+        healthBar.SetHealthBar(curHp / maxHp);
 
         if (curHp <= 0)
         {
             StopCoroutine(AttackRoutine());
+            _tile.Clear();
             animator.SetTrigger("Die");
             Destroy(gameObject, 1.3f);
         }
+    }
+
+    public void Kill()
+    {
+        healthBar.SetHealthBar(0);
+        _tile.Clear();
+        animator.SetTrigger("Die");
+        Destroy(gameObject, 1.3f);
+    }
+
+    public bool IsDead()
+    {
+        return curHp <= 0;
     }
 
     /* debug

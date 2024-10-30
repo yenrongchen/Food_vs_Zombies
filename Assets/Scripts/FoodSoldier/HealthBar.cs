@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FoodSoldierHealthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField]
     private Image curHpBar; // green part
