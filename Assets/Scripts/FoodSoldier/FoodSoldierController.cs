@@ -91,6 +91,8 @@ public class FoodSoldier : MonoBehaviour
 
     public void Hurt(float damage)
     {
+        if (curHp <= 0) return;
+
         curHp -= damage;
         healthBar.SetHealthBar(curHp / maxHp);
 
@@ -115,14 +117,5 @@ public class FoodSoldier : MonoBehaviour
     {
         return curHp <= 0;
     }
-
-    /* debug
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Hurt(10);
-        }
-    }*/
 }
 
