@@ -6,13 +6,13 @@ using UnityEngine;
 public class ZombieController : MonoBehaviour
 {
     [SerializeField]
-    private float maxHP = 100f;
+    private float maxHpMultiplier;
 
     [SerializeField]
-    private float speed = 0.5f;
+    private float speedMultiplier;
 
     [SerializeField]
-    private float attack = 4f;
+    private float attackMultiplier;
 
     [SerializeField]
     private GameObject healthBarPrefab;
@@ -23,9 +23,17 @@ public class ZombieController : MonoBehaviour
     [SerializeField]
     private GameObject headPrefab;
 
-    private GameObject healthBarObj;
-    private Animator animator;
     private float curHP;
+    private GameObject healthBarObj;
+    private Collider2D food;
+
+    private Animator animator;
+
+    // base attribute
+    private float maxHP = 100f;
+    private float speed = 0.5f;
+    private float attack = 4f;
+
     private bool isWalking = true;
     private bool isEating = false;
     private bool hasBrokenArm = false;
@@ -35,11 +43,16 @@ public class ZombieController : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         healthBarObj = Instantiate(healthBarPrefab, this.transform.position + new Vector3(-0.1f, 0.75f, 0f), this.transform.rotation);
-        healthBarObj.GetComponent<ZombieHealthBar>().setMaxHP(maxHP);
     }
 
     void Start()
     {
+        maxHP *= maxHpMultiplier;
+        speed *= speedMultiplier;
+        attack *= attackMultiplier;
+
+        healthBarObj.GetComponent<ZombieHealthBar>().setMaxHP(maxHP);
+
         curHP = maxHP;
     }
 
@@ -49,25 +62,38 @@ public class ZombieController : MonoBehaviour
         if (isWalking)
         {
             this.transform.position -= new Vector3(speed * Time.deltaTime, 0f, 0f);
+
+            if (curHP > maxHP / 2)  // walk
+            {
+                animator.SetInteger("state", 0);
+            }
+
+            if (curHP <= maxHP / 2 && !hasBrokenArm)  // broken_walk
+            {
+                animator.SetInteger("state", 1);
+                Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
+                hasBrokenArm = true;
+            }
         }
 
         // update health bar position
         healthBarObj.transform.position = this.transform.position + new Vector3(-0.1f, 0.75f, 0f);
 
-        // broke the arm
-        if (curHP <= maxHP / 2 && !hasBrokenArm)
+        if (isEating)
         {
-            if (isEating)
+            food.GetComponent<FoodSoldier>().Hurt((int)attack);  // NEED TO BE FIXED
+
+            if (curHP > maxHP / 2)  // eat
             {
-                animator.SetInteger("state", 3);  // broken_eat
+                animator.SetInteger("state", 2);
             }
-            else 
+
+            if (curHP <= maxHP / 2 && !hasBrokenArm)  // broken_eat
             {
-                animator.SetInteger("state", 1);  // broken_walk
+                animator.SetInteger("state", 3);
+                Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
+                hasBrokenArm = true;
             }
-            
-            Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
-            hasBrokenArm = true;
         }
 
         // died
@@ -75,11 +101,11 @@ public class ZombieController : MonoBehaviour
         {
             isWalking = false;
 
-            if(isEating)
+            if(isEating)  // eating_die
             {
                 animator.SetInteger("state", 5);
             } 
-            else
+            else  // walking_die
             {
                 animator.SetInteger("state", 4);
             }
@@ -94,7 +120,7 @@ public class ZombieController : MonoBehaviour
 
         if (this.transform.position.x < -5.15)
         {
-            // TODO: Game over
+            // TODO Game-over
         }
     }
 
@@ -115,15 +141,7 @@ public class ZombieController : MonoBehaviour
         {
             isWalking = false;
             isEating = true;
-
-            if (curHP > maxHP / 2)  // eat
-            {
-                animator.SetInteger("state", 2);
-            }
-            else  // broken_eat
-            {
-                animator.SetInteger("state", 3);
-            }
+            food = other;
         }
     }
 
@@ -134,5 +152,12 @@ public class ZombieController : MonoBehaviour
             isWalking = true;
             isEating = false;
         }
+    }
+
+    public void setMultiplier(float hpMul, float spdMul, float atkMul)
+    {
+        this.maxHpMultiplier = hpMul;
+        this.speedMultiplier = spdMul;
+        this.attackMultiplier = atkMul;
     }
 }

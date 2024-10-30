@@ -29,15 +29,15 @@ public class ZombieHeadController : MonoBehaviour
         }
         else if (timer < 1.65)
         {
-            this.transform.position += new Vector3(0.002f, 0.001f, 0f);
+            this.transform.position += new Vector3(0.125f * Time.deltaTime, 0.0625f * Time.deltaTime, 0f);
         }
         else if (timer < 1.8)
         {
-            this.transform.position += new Vector3(0.002f, -0.001f, 0f);
+            this.transform.position += new Vector3(0.125f * Time.deltaTime, -0.0625f * Time.deltaTime, 0f);
         }
         else
         {
-            this.transform.position += new Vector3(0.002f, 0f, 0f);
+            this.transform.position += new Vector3(0.125f * Time.deltaTime, 0f, 0f);
         }
 
         this.transform.Rotate(new Vector3(0f, 0f, -60f * Time.deltaTime));

@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123d2c3de2c1079409caab5e8e16b0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  speed: 0.5
-  attack: 4
+  maxHpMultiplier: 1
+  speedMultiplier: 1
+  attackMultiplier: 1
   healthBarPrefab: {fileID: 5914546867549101647, guid: d08b87a76892cc8438cb7c469633bb1d, type: 3}
   armPrefab: {fileID: 4411467005491574381, guid: 8fa5d5969404aca49992bd66a91e0c3a, type: 3}
   headPrefab: {fileID: 7110855971454009254, guid: 52c2a00446072f74e841323fc577c71f, type: 3}

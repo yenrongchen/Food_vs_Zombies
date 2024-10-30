@@ -8,7 +8,7 @@ public class ZombieArmController : MonoBehaviour
 
     void Start()
     {
-        Destroy(this.gameObject, 1.5f);
+        Destroy(this.gameObject, 1.4f);
     }
 
     // Update is called once per frame
@@ -16,18 +16,18 @@ public class ZombieArmController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer < 0.5)
+        if (timer < 0.6)
         {
-            this.transform.position += new Vector3(0f, -0.004f, 0f);
+            this.transform.position += new Vector3(0f, -0.4f * Time.deltaTime, 0f);
         }
-        else if (timer < 0.55)
+        else if (timer < 0.7)
         {
-            this.transform.position += new Vector3(0.0004f, 0.0005f, 0f);
+            this.transform.position += new Vector3(0.07f * Time.deltaTime, 0.08f * Time.deltaTime, 0f);
         }
         else
         {
-            this.transform.position += new Vector3(0f, -0.0015f, 0f);
-            this.transform.Rotate(new Vector3(0f, 0f, 80f * Time.deltaTime));
+            this.transform.position += new Vector3(-0.08f * Time.deltaTime, -0.55f * Time.deltaTime, 0f);
+            this.transform.Rotate(new Vector3(0f, 0f, 105f * Time.deltaTime));
         }
     }
 }
