@@ -8,42 +8,51 @@ public class ZombieSpawner : MonoBehaviour
     [SerializeField]
     private GameObject zombie;
 
-    public GameObject sp1;
-    public GameObject sp2;
-    public GameObject sp3;
-    public GameObject sp4;
-    public GameObject sp5;
+    private Vector3 spawnPoint1 = new Vector3(9.5f, 2.8f, 0f);
+    private Vector3 spawnPoint2 = new Vector3(9.5f, 1.3f, 0f);
+    private Vector3 spawnPoint3 = new Vector3(9.5f, -0.2f, 0f);
+    private Vector3 spawnPoint4 = new Vector3(9.5f, -1.6f, 0f);
+    private Vector3 spawnPoint5 = new Vector3(9.5f, -3.1f, 0f);
 
+    //testing
+    //private void Start()
+    //{
+    //    StartCoroutine(Spawn(spawnPoint1));
+    //    StartCoroutine(Spawn(spawnPoint2));
+    //    StartCoroutine(Spawn(spawnPoint3));
+    //    StartCoroutine(Spawn(spawnPoint4));
+    //    StartCoroutine(Spawn(spawnPoint5));
+    //}
 
     public void spawnWave(int waveNum)
     {
         if (waveNum == 1)
         {
-            StartCoroutine(Spawn(sp3));
+            StartCoroutine(Spawn(spawnPoint3));
         }
         else if (waveNum == 2)
         {
-            StartCoroutine(Spawn(sp2));
-            StartCoroutine(Spawn(sp3));
-            StartCoroutine(Spawn(sp4));
+            StartCoroutine(Spawn(spawnPoint2));
+            StartCoroutine(Spawn(spawnPoint3));
+            StartCoroutine(Spawn(spawnPoint4));
         }
         else
         {
-            StartCoroutine(Spawn(sp1));
-            StartCoroutine(Spawn(sp2));
-            StartCoroutine(Spawn(sp3));
-            StartCoroutine(Spawn(sp4));
-            StartCoroutine(Spawn(sp5));
+            StartCoroutine(Spawn(spawnPoint1));
+            StartCoroutine(Spawn(spawnPoint2));
+            StartCoroutine(Spawn(spawnPoint3));
+            StartCoroutine(Spawn(spawnPoint4));
+            StartCoroutine(Spawn(spawnPoint5));
         }
     }
 
-    IEnumerator Spawn(GameObject spawner)
+    IEnumerator Spawn(Vector3 spawnPoint)
     {
         for (int i = 0; i < 3; i++)
         {
-            float interval = Random.Range(5f, 10f);
+            float interval = Random.Range(10f, 20f);
             yield return new WaitForSeconds(interval);
-            Instantiate(zombie, spawner.transform.position, spawner.transform.rotation);
+            Instantiate(zombie, spawnPoint, Quaternion.identity);  // no rotation
         }
     }
 }

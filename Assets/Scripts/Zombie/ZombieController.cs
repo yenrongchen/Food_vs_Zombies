@@ -34,7 +34,7 @@ public class ZombieController : MonoBehaviour
     void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
-        healthBarObj = Instantiate(healthBarPrefab, this.transform.position + new Vector3(-0.1f, 0.85f, 0f), this.transform.rotation);
+        healthBarObj = Instantiate(healthBarPrefab, this.transform.position + new Vector3(-0.1f, 0.75f, 0f), this.transform.rotation);
         healthBarObj.GetComponent<ZombieHealthBar>().setMaxHP(maxHP);
     }
 
@@ -52,7 +52,7 @@ public class ZombieController : MonoBehaviour
         }
 
         // update health bar position
-        healthBarObj.transform.position = this.transform.position + new Vector3(-0.1f, 0.85f, 0f);
+        healthBarObj.transform.position = this.transform.position + new Vector3(-0.1f, 0.75f, 0f);
 
         // broke the arm
         if (curHP <= maxHP / 2 && !hasBrokenArm)
@@ -83,7 +83,8 @@ public class ZombieController : MonoBehaviour
             {
                 animator.SetInteger("state", 4);
             }
-            
+
+            Destroy(GetComponent<BoxCollider2D>());
             Destroy(this.gameObject, 2f);
             Destroy(healthBarObj, 2f);
 
@@ -93,23 +94,24 @@ public class ZombieController : MonoBehaviour
 
         if (this.transform.position.x < -5.15)
         {
-            // Game over
+            // TODO: Game over
+        }
+    }
+
+    // hit by food bullets
+    public void Hurt(float dmg)
+    {
+        if (this.transform.position.x <= 8.8)
+        {
+            curHP -= dmg;
+            curHP = Mathf.Clamp(curHP, 0, maxHP);
+            healthBarObj.GetComponent<ZombieHealthBar>().getDamaged(dmg);
         }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "FoodBullet")  // hit by food bullets
-        {
-            if (this.transform.position.x <= 8.8)
-            {
-                float dmg = 10;  // change bullet damage here
-                curHP -= dmg;
-                curHP = Mathf.Clamp(curHP, 0, maxHP);
-                healthBarObj.GetComponent<ZombieHealthBar>().getDamaged(dmg);
-            }
-        }
-        else if (other.gameObject.tag == "FoodSoldier")  // start attacking
+        if (other.gameObject.tag == "FoodSoldier")  // start attacking
         {
             isWalking = false;
             isEating = true;
@@ -127,7 +129,7 @@ public class ZombieController : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "food")  // continue walking
+        if (other.gameObject.tag == "FoodSoldier")  // continue walking
         {
             isWalking = true;
             isEating = false;

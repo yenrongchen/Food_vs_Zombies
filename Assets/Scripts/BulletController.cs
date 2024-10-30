@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            // TODO: put attack emeny method here
+            other.GetComponent<ZombieController>().Hurt(bulletDamage);
 
             if (!penetration)
             {
