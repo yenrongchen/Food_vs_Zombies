@@ -86,7 +86,7 @@ public class ZombieSpawner : MonoBehaviour
         }
         else if (waveNum == 2)
         {
-            yield return spawnOneLine(spawnPoint, wave2HpMultiplier, wave2SpeedMultiplier, wave3AttackMultiplier);
+            yield return spawnOneLine(spawnPoint, wave2HpMultiplier, wave2SpeedMultiplier, wave2AttackMultiplier);
         }
         else if (waveNum == 3)
         {
