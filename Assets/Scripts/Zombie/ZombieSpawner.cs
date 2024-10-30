@@ -10,7 +10,35 @@ public class ZombieSpawner : MonoBehaviour
 
     private GameObject zombieObj;
 
+    [SerializeField]
     private float waveStrengthDiff = 0.5f;  // change the strength difference between waves after wave 7
+
+    [SerializeField]
+    private float wave1HpMultiplier = 1f;
+    
+    [SerializeField]
+    private float wave1SpeedMultiplier = 1f;
+    
+    [SerializeField]
+    private float wave1AttackMultiplier = 1f;
+    
+    [SerializeField]
+    private float wave2HpMultiplier = 1.5f;
+    
+    [SerializeField]
+    private float wave2SpeedMultiplier = 1f;
+    
+    [SerializeField]
+    private float wave2AttackMultiplier = 1.25f;
+    
+    [SerializeField]
+    private float wave3HpMultiplier = 1.5f;
+    
+    [SerializeField]
+    private float wave3SpeedMultiplier = 1.5f;
+    
+    [SerializeField]
+    private float wave3AttackMultiplier = 1.5f;
 
     private Vector3 spawnPoint1 = new Vector3(9.5f, 2.8f, 0f);
     private Vector3 spawnPoint2 = new Vector3(9.5f, 1.3f, 0f);
@@ -54,15 +82,15 @@ public class ZombieSpawner : MonoBehaviour
     {
         if (waveNum == 1)
         {
-            yield return spawnOneLine(spawnPoint, 1f, 1f, 1f);
+            yield return spawnOneLine(spawnPoint, wave1HpMultiplier, wave1SpeedMultiplier, wave1AttackMultiplier);
         }
         else if (waveNum == 2)
         {
-            yield return spawnOneLine(spawnPoint, 1.5f, 1f, 1.25f);
+            yield return spawnOneLine(spawnPoint, wave2HpMultiplier, wave2SpeedMultiplier, wave3AttackMultiplier);
         }
         else if (waveNum == 3)
         {
-            yield return spawnOneLine(spawnPoint, 1.5f, 1.5f, 1.5f);
+            yield return spawnOneLine(spawnPoint, wave3HpMultiplier, wave3SpeedMultiplier, wave3AttackMultiplier);
         }
         else
         {
