@@ -248,16 +248,14 @@ public class CombineAreaController : MonoBehaviour
         CurrentOffering = null;
     }
 
-    public void SwitchActivePointerState()
+    public void SetActivePointer()
     {
-        if (activePointer.GetComponent<Renderer>().enabled == true)
-        {
-            activePointer.GetComponent<Renderer>().enabled = false;
-        }
-        else
-        {
-            activePointer.GetComponent<Renderer>().enabled = true;
-        }
+        activePointer.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void UnSetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = false;
     }
 
     // all the checkers to tell if the player can put a specific food in the current combine table

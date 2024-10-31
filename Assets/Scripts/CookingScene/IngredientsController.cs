@@ -148,15 +148,13 @@ public class IngredientsController : MonoBehaviour
         CurrentOffering = null;
     }
 
-    public void SwitchActivePointerState()
+    public void SetActivePointer()
     {
-        if (activePointer.GetComponent<Renderer>().enabled == true)
-        {
-            activePointer.GetComponent<Renderer>().enabled = false;
-        }
-        else
-        {
-            activePointer.GetComponent<Renderer>().enabled = true;
-        }
+        activePointer.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void UnSetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = false;
     }
 }
