@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
@@ -33,6 +34,9 @@ public class WaveManager : MonoBehaviour
     private bool isAnimating;
     private float animTimer;
 
+    [SerializeField]
+    private TextMeshProUGUI showWave;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,15 +47,23 @@ public class WaveManager : MonoBehaviour
         animTimer = 0f;
         isAnimating = false;
 
-        if (ZombieSpawner == null || GridManager == null)
-        {
-            Debug.Log("ERROR in WVMG");
-        }
+        showWave.alpha = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if(showWave.alpha == 0)
+            {
+                showWave.alpha = 1;
+            }
+            else
+            {
+                showWave.alpha = 0;
+            }
+        }
         if (isAnimating)
         {
             if (currentWaveNum == 2)
@@ -74,6 +86,7 @@ public class WaveManager : MonoBehaviour
         if (intervalWave <= 0)
         {
             currentWaveNum++;
+            showWave.text = "Current Wave: " + currentWaveNum;
 
             if (currentWaveNum == 2 || currentWaveNum == 3)
             {
