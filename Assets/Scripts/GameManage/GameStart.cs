@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class GameStart : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && helpScreen.activeSelf)
         {
-            helpScreen.SetActive(false);
+            closeHelp();
         }
     }
     public void StartGame()
@@ -20,5 +21,10 @@ public class GameStart : MonoBehaviour
     public void GameHelp()
     {
         helpScreen.SetActive(true);
+    }
+
+    public void closeHelp()
+    {
+        helpScreen.SetActive(false);
     }
 }
