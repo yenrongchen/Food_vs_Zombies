@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     private FoodSoldier _foodSoldier;
 
     private bool _occupied;
+    private bool _canInteract;
 
     void Start()
     {
@@ -21,44 +22,43 @@ public class Tile : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (!_canInteract || eventData.pointerDrag == null) return;
+
         //Debug.Log("DROP");
-        if (eventData.pointerDrag != null)
+        if (!_occupied && eventData.pointerDrag.GetComponent<DragDrop>().getFoodCnt() > 0)
         {
-            if (!_occupied && eventData.pointerDrag.GetComponent<DragDrop>().getFoodCnt() > 0)
-            {
-                float tmpX = 0.8f + transform.position.x;
-                float tmpY = transform.position.y;
+            float tmpX = 0.8f + transform.position.x;
+            float tmpY = transform.position.y;
 
-                var foodData = eventData.pointerDrag.GetComponent<DragDrop>().getFoodData();
+            var foodData = eventData.pointerDrag.GetComponent<DragDrop>().getFoodData();
 
-                _foodSoldier = _spawner.Spawn(foodData, new Vector2(tmpX, tmpY), this);
-                eventData.pointerDrag.GetComponent<DragDrop>().Pop();
-                _occupied = true;
-                //Debug.Log("occupied" + _occupied);
-            }
-            else if (_occupied && eventData.pointerDrag.CompareTag("KillFood")) 
-            {
-                if (_foodSoldier != null) _foodSoldier.Kill();
-            }
+            _foodSoldier = _spawner.Spawn(foodData, new Vector2(tmpX, tmpY), this);
+            eventData.pointerDrag.GetComponent<DragDrop>().Pop();
+            _occupied = true;
+            //Debug.Log("occupied" + _occupied);
         }
+        else if (_occupied && eventData.pointerDrag.CompareTag("KillFood")) 
+        {
+            if (_foodSoldier != null) _foodSoldier.Kill();
+        }
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerDrag != null)
+        if (!_canInteract || eventData.pointerDrag == null) return;
+        
+        if (eventData.pointerDrag.CompareTag("KillFood"))
         {
-            if (eventData.pointerDrag.CompareTag("KillFood"))
+            if (_occupied)
             {
-                if (_occupied)
-                {
-                    _no.SetActive(true);
-                    _highlight.SetActive(true);
-                }
-            }
-            else if (!_occupied)
-            {
+                _no.SetActive(true);
                 _highlight.SetActive(true);
             }
+        }
+        else if (!_occupied)
+        {
+            _highlight.SetActive(true);
         }
     }
 
@@ -78,6 +78,11 @@ public class Tile : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     public void Clear()
     {
         _occupied = false;
+    }
+
+    public void SetInteract(bool interact)
+    {
+        _canInteract = interact;
     }
 
 }
