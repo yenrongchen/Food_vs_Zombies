@@ -6,7 +6,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int _width, _height;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private int _wave = 1;
+    [SerializeField] private int _wave = 0;
 
     private Dictionary<Vector2, Tile> _tiles;
 
@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
     {
         GenerateGrid();
         SetTilesbyWave(_wave);
+        _wave = 0;
     }
 
     void GenerateGrid()
@@ -45,6 +46,7 @@ public class GridManager : MonoBehaviour
 
             switch (wave)
             {
+                case 0:
                 case 1:
                     canInteract = y == 2;
                     break;
@@ -63,10 +65,11 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void SetWave(int wave)
+    public void setWave(int wave)
     {
-        _wave = wave + 1;
-        if (_wave > 3) wave = 3;
+        _wave = wave;
+        if (_wave > 3) _wave = 3;
+        SetTilesbyWave(_wave);
     }
 
     /* // DEBUG: press space for next wave

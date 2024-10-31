@@ -46,7 +46,7 @@ public class WaveManager : MonoBehaviour
         {
             currentWaveNum++;
             ZombieSpawner.GetComponent<ZombieSpawner>().spawnWave(currentWaveNum);
-            GridManager.GetComponent<GridManager>().SetWave(currentWaveNum);
+            GridManager.GetComponent<GridManager>().setWave(currentWaveNum);
 
             intervalWave = INTERVAL_WAVE;
         }
