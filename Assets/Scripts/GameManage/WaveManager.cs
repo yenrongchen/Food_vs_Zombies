@@ -10,10 +10,10 @@ public class WaveManager : MonoBehaviour
     private int currentWaveNum = 0;
 
     [SerializeField]
-    private float INTERVAL_WAVE = 15f;
+    private float INTERVAL_WAVE = 36f;
 
     [SerializeField]
-    private float initInterval = 10f;
+    private float initInterval = 18f;
 
     [SerializeField]
     private float intervalWave;
@@ -105,7 +105,6 @@ public class WaveManager : MonoBehaviour
             image.fillAmount = 0f;
             isAnimating = false;
             
-            ZombieSpawner.GetComponent<ZombieSpawner>().spawnWave(currentWaveNum);
             GridManager.GetComponent<GridManager>().setWave(currentWaveNum);
         }
     }
