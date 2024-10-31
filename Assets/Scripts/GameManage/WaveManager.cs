@@ -86,7 +86,7 @@ public class WaveManager : MonoBehaviour
         if (intervalWave <= 0)
         {
             currentWaveNum++;
-            showWave.text = "Currebt Wave: " + currentWaveNum;
+            showWave.text = "Current Wave: " + currentWaveNum;
 
             if (currentWaveNum == 2 || currentWaveNum == 3)
             {
