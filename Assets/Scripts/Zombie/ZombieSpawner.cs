@@ -49,11 +49,11 @@ public class ZombieSpawner : MonoBehaviour
     // testing
     private void Start()
     {
-        StartCoroutine(Spawn(spawnPoint1, 1));
+        /*StartCoroutine(Spawn(spawnPoint1, 1));
         StartCoroutine(Spawn(spawnPoint2, 1));
         StartCoroutine(Spawn(spawnPoint3, 1));
         StartCoroutine(Spawn(spawnPoint4, 1));
-        StartCoroutine(Spawn(spawnPoint5, 1));
+        StartCoroutine(Spawn(spawnPoint5, 1));*/
     }
 
     public void spawnWave(int waveNum)
