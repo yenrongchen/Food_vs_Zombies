@@ -40,15 +40,6 @@ public class ZombieSpawner : MonoBehaviour
     [SerializeField]
     private float wave3AttackMultiplier = 1.5f;
 
-    [SerializeField]
-    private float waveTime = 15f;
-
-    [SerializeField]
-    private float minInterval = 3f;
-
-    [SerializeField]
-    private float maxInterval = 5f;
-
     private Vector3 spawnPoint1 = new Vector3(9.5f, -9.2f, 0f);
     private Vector3 spawnPoint2 = new Vector3(9.5f, -10.7f, 0f);
     private Vector3 spawnPoint3 = new Vector3(9.5f, -12.2f, 0f);
@@ -125,23 +116,17 @@ public class ZombieSpawner : MonoBehaviour
 
     IEnumerator spawnOneLine(Vector3 spawnPoint, float hpMul, float spdMul, float atkMul)
     {
-        float total = 0f;
-        float interval = 0f;
+        float interval = Random.Range(3f, 12f);
+        yield return new WaitForSeconds(interval);
+        GameObject zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
+        zombieInstance.GetComponent<ZombieController>().setMultiplier(hpMul, spdMul, atkMul);
 
-        while (total <= waveTime)
+        for (int i = 0; i < 3; i++)
         {
-            interval = Random.Range(minInterval, maxInterval);
-
-            if (total + interval > waveTime)
-            {
-                break;
-            }
-
+            interval = Random.Range(10f, 20f);
             yield return new WaitForSeconds(interval);
-            GameObject zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
+            zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
             zombieInstance.GetComponent<ZombieController>().setMultiplier(hpMul, spdMul, atkMul);
-
-            total += interval;
         }
     }
 }
