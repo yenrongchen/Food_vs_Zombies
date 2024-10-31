@@ -32,10 +32,11 @@ public class ZombieController : MonoBehaviour
     // base attribute
     private float maxHP = 100f;
     private float speed = 0.5f;
-    private float attack = 4f;
+    private float attack = 1f;
 
     private bool isWalking = true;
     private bool isEating = false;
+    private bool isDead = false;
     private bool hasBrokenArm = false;
     private bool hasBrokenHead = false;
 
@@ -65,11 +66,13 @@ public class ZombieController : MonoBehaviour
 
             if (curHP > maxHP / 2)  // walk
             {
+                //animator.Play("walk");
                 animator.SetInteger("state", 0);
             }
 
             if (curHP <= maxHP / 2 && !hasBrokenArm)  // broken_walk
             {
+                //animator.Play("broke_walk");
                 animator.SetInteger("state", 1);
                 Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
                 hasBrokenArm = true;
@@ -81,7 +84,7 @@ public class ZombieController : MonoBehaviour
 
         if (isEating)
         {
-            food.GetComponent<FoodSoldier>().Hurt((int)attack);  // NEED TO BE FIXED
+            food.GetComponent<FoodSoldier>().Hurt(attack);  // NEED TO BE FIXED
 
             if (curHP > maxHP / 2)  // eat
             {
@@ -97,7 +100,7 @@ public class ZombieController : MonoBehaviour
         }
 
         // died
-        if (curHP == 0 && !hasBrokenHead)
+        if (curHP <= 0 && !hasBrokenHead)
         {
             isWalking = false;
 

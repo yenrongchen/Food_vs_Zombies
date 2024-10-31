@@ -4,8 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class FoodSoldierStat
 {
-    public int hp;
-    public int atk;
+    public float hp;
+    public float atk;
     public float atkSpeed;
     public bool penetration;
 }
