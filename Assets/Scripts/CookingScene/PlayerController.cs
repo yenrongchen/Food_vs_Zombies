@@ -193,4 +193,44 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)   // switch green active pointer
+    {
+        if (other.gameObject.tag == "CanTake")
+        {
+            other.GetComponent<IngredientsController>().SwitchActivePointerState();
+        }
+        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea" && other.name != "CombineArea (1)" )
+        {
+            other.GetComponent<CookingAreaController>().SwitchActivePointerState();
+        }
+        else if (other.name == "CombineArea" || other.name == "CombineArea (1)")
+        {
+            other.GetComponent<CombineAreaController>().SwitchActivePointerState();
+        }
+        else if (other.gameObject.tag == "CanDiscard")
+        {
+            other.GetComponent<DropDishAreaController>().SwitchActivePointerState();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)   // switch green active pointer
+    {
+        if (other.gameObject.tag == "CanTake")
+        {
+            other.GetComponent<IngredientsController>().SwitchActivePointerState();
+        }
+        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea" && other.name != "CombineArea (1)")
+        {
+            other.GetComponent<CookingAreaController>().SwitchActivePointerState();
+        }
+        else if (other.name == "CombineArea" || other.name == "CombineArea (1)")
+        {
+            other.GetComponent<CombineAreaController>().SwitchActivePointerState();
+        }
+        else if (other.gameObject.tag == "CanDiscard")
+        {
+            other.GetComponent<DropDishAreaController>().SwitchActivePointerState();
+        }
+    }
+
 }

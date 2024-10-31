@@ -34,6 +34,8 @@ public class CombineAreaController : MonoBehaviour
     private GameObject[] ItemDishes = new GameObject[6];
 
     private bool changed;
+
+    private GameObject activePointer;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,7 @@ public class CombineAreaController : MonoBehaviour
 
         CurrentOffering = null;
         changed = false;
+        activePointer = this.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -243,6 +246,18 @@ public class CombineAreaController : MonoBehaviour
     public void SetCurrentOfferingToNullAfterGetItem()
     {
         CurrentOffering = null;
+    }
+
+    public void SwitchActivePointerState()
+    {
+        if (activePointer.GetComponent<Renderer>().enabled == true)
+        {
+            activePointer.GetComponent<Renderer>().enabled = false;
+        }
+        else
+        {
+            activePointer.GetComponent<Renderer>().enabled = true;
+        }
     }
 
     // all the checkers to tell if the player can put a specific food in the current combine table
