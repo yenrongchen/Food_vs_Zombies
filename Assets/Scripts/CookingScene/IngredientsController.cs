@@ -21,6 +21,7 @@ public class IngredientsController : MonoBehaviour
     private GameObject Canvas;
 
     private GameObject FatherBar;
+    private GameObject activePointer;
 
     [SerializeField]
     private float TIMEINTERVALRICE = 8;
@@ -40,6 +41,8 @@ public class IngredientsController : MonoBehaviour
 
         CurrentOffering = null;
         FatherBar = null;
+
+        activePointer = this.transform.GetChild(0).gameObject;
 
         timeIntervalRice = TIMEINTERVALRICE;
         timeIntervalMeat = TIMEINTERVALMEAT;
@@ -143,5 +146,15 @@ public class IngredientsController : MonoBehaviour
     public void SetCurrentOfferingToNullAfterGetItem()
     {
         CurrentOffering = null;
+    }
+
+    public void SetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void UnSetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = false;
     }
 }

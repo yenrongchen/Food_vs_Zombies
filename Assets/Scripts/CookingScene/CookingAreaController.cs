@@ -36,6 +36,8 @@ public class CookingAreaController : MonoBehaviour
     private GameObject Canvas;
 
     private GameObject FatherBar;
+    private GameObject activePointer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,8 @@ public class CookingAreaController : MonoBehaviour
         CurrentOffering = null;
 
         FatherBar = null;
+
+        activePointer = this.transform.GetChild(0).gameObject;
 
         timeIntervalChop = TIMEINTERVALCHOP;
         timeIntervalCook = TIMEINTERVALCOOK;
@@ -207,5 +211,15 @@ public class CookingAreaController : MonoBehaviour
     public void SetCurrentOfferingToNullAfterGetItem()
     {
         CurrentOffering = null;
+    }
+
+    public void SetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = true;
+    }
+
+    public void UnSetActivePointer()
+    {
+        activePointer.GetComponent<Renderer>().enabled = false;
     }
 }

@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "CanTake")  //  taking Ingredients from boxes
         {
+            other.GetComponent<IngredientsController>().SetActivePointer();
+
             if (Input.GetKey(KeyCode.Mouse0) && isTaking == false)
             {
                 CurrentTaking = other.gameObject.GetComponent<IngredientsController>().GetItem();
@@ -108,6 +110,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.name == "TrashCan")  //  throw away to TrashCan
         {
+            other.GetComponent<DropDishAreaController>().SetActivePointer();
+
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
             {
                 isTaking = false;
@@ -119,6 +123,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea" && other.name != "CombineArea (1)" )//  put Food to cook areas
         {
+            other.GetComponent<CookingAreaController>().SetActivePointer();
+
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true && other.gameObject.GetComponent<CookingAreaController>().IsEmpty() 
                 && !other.gameObject.GetComponent<CookingAreaController>().IsWorking())
             {
@@ -143,6 +149,8 @@ public class PlayerController : MonoBehaviour
         }
         else if(other.name == "CombineArea" || other.name == "CombineArea (1)")   //  put food to combine area
         {
+            other.GetComponent<CombineAreaController>().SetActivePointer();
+
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
             {
                 int state = other.gameObject.GetComponent<CombineAreaController>().StartWorking(CurrentTaking);
@@ -173,6 +181,8 @@ public class PlayerController : MonoBehaviour
         }                                                           // export food to outside to become a food man
         else if(other.name == "ExportArea")
         {
+            other.GetComponent<DropDishAreaController>().SetActivePointer();
+
             if (Input.GetKey(KeyCode.Mouse1) && isTaking == true)
             {
                 if (other.gameObject.GetComponent<ExportAreaController>().ExportDish(CurrentTaking))
@@ -190,6 +200,26 @@ public class PlayerController : MonoBehaviour
         if(CurrentTaking != null && isTaking == false)   // in order to set the correct animation for update func
         {
             isTaking = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)   // unset green active pointer
+    {
+        if (other.gameObject.tag == "CanTake")
+        {
+            other.GetComponent<IngredientsController>().UnSetActivePointer();
+        }
+        else if (other.gameObject.tag == "CanBoth" && other.name != "CombineArea" && other.name != "CombineArea (1)")
+        {
+            other.GetComponent<CookingAreaController>().UnSetActivePointer();
+        }
+        else if (other.name == "CombineArea" || other.name == "CombineArea (1)")
+        {
+            other.GetComponent<CombineAreaController>().UnSetActivePointer();
+        }
+        else if (other.gameObject.tag == "CanDiscard")
+        {
+            other.GetComponent<DropDishAreaController>().UnSetActivePointer();
         }
     }
 
