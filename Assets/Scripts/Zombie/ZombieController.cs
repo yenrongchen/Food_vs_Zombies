@@ -132,8 +132,17 @@ public class ZombieController : MonoBehaviour
             curHP -= dmg;
             curHP = Mathf.Clamp(curHP, 0, maxHP);
             healthBarObj.GetComponent<ZombieHealthBar>().getDamaged(dmg);
+            StartCoroutine(changeColor());
         }
     }
+
+    IEnumerator changeColor()
+    {
+        this.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.08f);
+        this.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
 
     public void OnTriggerEnter2D(Collider2D other)
     {
