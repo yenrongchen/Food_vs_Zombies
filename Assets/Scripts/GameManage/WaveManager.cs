@@ -10,10 +10,10 @@ public class WaveManager : MonoBehaviour
     private int currentWaveNum = 0;
 
     [SerializeField]
-    private float INTERVAL_WAVE = 15f;
+    private float INTERVAL_WAVE = 30f;
 
     [SerializeField]
-    private float initInterval = 10f;
+    private float initInterval = 15f;
 
     [SerializeField]
     private float intervalWave;

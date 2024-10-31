@@ -31,11 +31,12 @@ public class ZombieController : MonoBehaviour
 
     // base attribute
     private float maxHP = 100f;
-    private float speed = 0.5f;
-    private float attack = 4f;
+    private float speed = 0.3f;
+    private float attack = 12f;
 
     private bool isWalking = true;
     private bool isEating = false;
+    private bool isDead = false;
     private bool hasBrokenArm = false;
     private bool hasBrokenHead = false;
 
@@ -67,44 +68,54 @@ public class ZombieController : MonoBehaviour
             {
                 animator.SetInteger("state", 0);
             }
-
-            if (curHP <= maxHP / 2 && !hasBrokenArm)  // broken_walk
+            else    // broken_walk
             {
+                if (!hasBrokenArm)  // broke the arm
+                {
+                    Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
+                    hasBrokenArm = true;
+                }
+
                 animator.SetInteger("state", 1);
-                Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
-                hasBrokenArm = true;
             }
+
         }
 
         // update health bar position
         healthBarObj.transform.position = this.transform.position + new Vector3(-0.1f, 0.75f, 0f);
 
+        // eating
         if (isEating)
         {
-            food.GetComponent<FoodSoldier>().Hurt(attack); 
+            food.GetComponent<FoodSoldier>().Hurt(attack * Time.deltaTime);
 
             if (curHP > maxHP / 2)  // eat
             {
                 animator.SetInteger("state", 2);
             }
-
-            if (curHP <= maxHP / 2 && !hasBrokenArm)  // broken_eat
+            else    // broken_eat
             {
+                if (!hasBrokenArm)  // broke the arm
+                {
+                    Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
+                    hasBrokenArm = true;
+                }
+
                 animator.SetInteger("state", 3);
-                Instantiate(armPrefab, this.transform.position + new Vector3(0.05f, 0.05f, 0f), this.transform.rotation);
-                hasBrokenArm = true;
             }
+
         }
 
         // died
         if (curHP == 0 && !hasBrokenHead)
         {
             isWalking = false;
+            isDead = true;
 
-            if(isEating)  // eating_die
+            if (isEating)  // eating_die
             {
                 animator.SetInteger("state", 5);
-            } 
+            }
             else  // walking_die
             {
                 animator.SetInteger("state", 4);
@@ -116,6 +127,8 @@ public class ZombieController : MonoBehaviour
 
             Instantiate(headPrefab, this.transform.position + new Vector3(-0.05f, 0.21f, 0f), this.transform.rotation);
             hasBrokenHead = true;
+
+            isEating = false;
         }
 
         if (this.transform.position.x < -5.15)
@@ -139,7 +152,7 @@ public class ZombieController : MonoBehaviour
     IEnumerator changeColor()
     {
         this.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.07f);
         this.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
@@ -150,12 +163,17 @@ public class ZombieController : MonoBehaviour
         {
             isWalking = false;
             isEating = true;
-            food = other;
+            this.food = other;
         }
     }
 
     public void OnTriggerExit2D(Collider2D other)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (other.gameObject.tag == "FoodSoldier")  // continue walking
         {
             isWalking = true;
