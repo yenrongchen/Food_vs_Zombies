@@ -40,20 +40,29 @@ public class ZombieSpawner : MonoBehaviour
     [SerializeField]
     private float wave3AttackMultiplier = 1.5f;
 
-    private Vector3 spawnPoint1 = new Vector3(9.5f, 2.8f, 0f);
-    private Vector3 spawnPoint2 = new Vector3(9.5f, 1.3f, 0f);
-    private Vector3 spawnPoint3 = new Vector3(9.5f, -0.2f, 0f);
-    private Vector3 spawnPoint4 = new Vector3(9.5f, -1.6f, 0f);
-    private Vector3 spawnPoint5 = new Vector3(9.5f, -3.1f, 0f);
+    [SerializeField]
+    private float waveTime = 15f;
+
+    [SerializeField]
+    private float minInterval = 3f;
+
+    [SerializeField]
+    private float maxInterval = 5f;
+
+    private Vector3 spawnPoint1 = new Vector3(9.5f, -9.2f, 0f);
+    private Vector3 spawnPoint2 = new Vector3(9.5f, -10.7f, 0f);
+    private Vector3 spawnPoint3 = new Vector3(9.5f, -12.2f, 0f);
+    private Vector3 spawnPoint4 = new Vector3(9.5f, -13.6f, 0f);
+    private Vector3 spawnPoint5 = new Vector3(9.5f, -15.1f, 0f);
 
     // testing
     private void Start()
     {
-        StartCoroutine(Spawn(spawnPoint1, 1));
+        /*StartCoroutine(Spawn(spawnPoint1, 1));
         StartCoroutine(Spawn(spawnPoint2, 1));
         StartCoroutine(Spawn(spawnPoint3, 1));
         StartCoroutine(Spawn(spawnPoint4, 1));
-        StartCoroutine(Spawn(spawnPoint5, 1));
+        StartCoroutine(Spawn(spawnPoint5, 1));*/
     }
 
     public void spawnWave(int waveNum)
@@ -116,17 +125,23 @@ public class ZombieSpawner : MonoBehaviour
 
     IEnumerator spawnOneLine(Vector3 spawnPoint, float hpMul, float spdMul, float atkMul)
     {
-        float interval = Random.Range(3f, 12f);
-        yield return new WaitForSeconds(interval);
-        GameObject zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
-        zombieInstance.GetComponent<ZombieController>().setMultiplier(hpMul, spdMul, atkMul);
+        float total = 0f;
+        float interval = 0f;
 
-        for (int i = 0; i < 3; i++)
+        while (total <= waveTime)
         {
-            interval = Random.Range(10f, 20f);
+            interval = Random.Range(minInterval, maxInterval);
+
+            if (total + interval > waveTime)
+            {
+                break;
+            }
+
             yield return new WaitForSeconds(interval);
-            zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
+            GameObject zombieInstance = Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
             zombieInstance.GetComponent<ZombieController>().setMultiplier(hpMul, spdMul, atkMul);
+
+            total += interval;
         }
     }
 }

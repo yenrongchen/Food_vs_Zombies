@@ -9,7 +9,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     [SerializeField] private Canvas _canvas;
     [SerializeField] private Image _image;
     [SerializeField] private FoodSoldierData _foodData;
-    [SerializeField] private int _foodCnt = 2;
+    [SerializeField] private int _foodCnt = 0;
     [SerializeField] private Text _cntText;
 
     private Vector2 _initPosition;
@@ -19,13 +19,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     private void Awake()
     {
+        _foodCnt = 0;
         _initPosition = GetComponent<RectTransform>().anchoredPosition;
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>();
+
         if (!CompareTag("KillFood"))
         {
             _cntText.text = _foodCnt.ToString();
-            _image = GetComponent<Image>();
         }
     }
 
@@ -76,7 +77,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             if (_foodCnt <= 0)
             {
                 Color tmpColor = _image.color;
-                tmpColor.a *= 0.5f;
+                tmpColor.a = 0.5f;
                 _image.color = tmpColor;
                 _cntText.color = new Color(_cntText.color.r, _cntText.color.g, _cntText.color.b, 0.5f);
             }
@@ -93,7 +94,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (_foodCnt == 1)
         {
             Color tmpColor = _image.color;
-            tmpColor.a *= 1f;
+            tmpColor.a = 1f;
             _image.color = tmpColor;
             _cntText.color = new Color(_cntText.color.r, _cntText.color.g, _cntText.color.b, 1f);
         }

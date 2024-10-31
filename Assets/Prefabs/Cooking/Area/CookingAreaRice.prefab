@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &2812826606313263739
 MonoBehaviour:
@@ -90,9 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4ac75e548ca740b3b73ce9eda6127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEmpty: 1
-  isWorking: 0
-  CurrentOffering: {fileID: 0}
   ItemCookedRice: {fileID: 5880541191915320417, guid: 1d8a84ff4dc468f459ea2b873e80b38b, type: 3}
   ItemCookedChopped:
   - {fileID: 5259951856292667979, guid: 803eda2531e84aa42982391a232dcdf1, type: 3}
@@ -104,4 +101,3 @@ MonoBehaviour:
   TIMEINTERVALCOOK: 8
   TIMEINTERVALCHOP: 8
   Canvas: {fileID: 6969598996284911780, guid: cddebfa62ff959d498af3f02f797ad89, type: 3}
-  FatherBar: {fileID: 0}

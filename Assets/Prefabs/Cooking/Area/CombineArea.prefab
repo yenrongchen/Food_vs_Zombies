@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &-6540881852406899898
 MonoBehaviour:
@@ -90,8 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960d14ed8fed85b45aa10a3d2ba85811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentFoodOnTable: 0000000000000000000000000000000000000000
-  CurrentOffering: {fileID: 0}
   ItemDishes:
   - {fileID: 6582690703977453728, guid: 68e3161c242cf164a991a1adc0f4ffc1, type: 3}
   - {fileID: 3493551421144376859, guid: 2bdd97fe85ff24f4f99ec902620ad254, type: 3}

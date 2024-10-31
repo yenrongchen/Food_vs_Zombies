@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ExportAreaController : MonoBehaviour
 {
+    [SerializeField] private DragDrop[] _dragDrops;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +23,22 @@ public class ExportAreaController : MonoBehaviour
         switch (InputDish.name)
         {
             case "ChoppedVegetable(Clone)":
+                if (_dragDrops[0] != null) _dragDrops[0].Push();
                 return true;
             case "Sashimi(Clone)":
+                if (_dragDrops[1] != null) _dragDrops[1].Push();
                 return true;
             case "Riceball(Clone)":
+                if (_dragDrops[2] != null) _dragDrops[2].Push();
                 return true;
             case "VegetableMealBox(Clone)":
+                if (_dragDrops[3] != null) _dragDrops[3].Push();
                 return true;
             case "FriedMeatAndVegetable(Clone)":
+                if (_dragDrops[4] != null) _dragDrops[4].Push();
                 return true;
             case "FriedRice(Clone)":
+                if (_dragDrops[5] != null) _dragDrops[5].Push();
                 return true;
         }
 

@@ -13,11 +13,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float walkSpeed = 2f;
 
+    [SerializeField]
+    private Camera cam;
+
     private float directionX = 0;
 
     private float directionY = 0;
 
     private bool isTaking;
+
+    private bool atMain = true;
 
     private GameObject CurrentTaking;
 
@@ -37,37 +42,54 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // player movement
-        directionX = Input.GetAxisRaw("Horizontal");
-        directionY = Input.GetAxisRaw("Vertical");
-        rbody2D.velocity = new Vector2(directionX * walkSpeed, directionY * walkSpeed);
+        if (atMain)
+        {
+            // player movement
+            directionX = Input.GetAxisRaw("Horizontal");
+            directionY = Input.GetAxisRaw("Vertical");
+            rbody2D.velocity = new Vector2(directionX * walkSpeed, directionY * walkSpeed);
 
-        // reflect the sprites when switching direction
-        if (directionX * this.transform.localScale.x > 0)
-        {
-            this.transform.localScale = new Vector3(-1 * this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            // reflect the sprites when switching direction
+            if (directionX * this.transform.localScale.x > 0)
+            {
+                this.transform.localScale = new Vector3(-1 * this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            }
+
+            // player animation
+            if (isTaking == false && (directionX != 0 || directionY != 0))  // turn to walk
+            {
+                animator.SetInteger("PlayerState", 1);
+            }
+            else if (isTaking == true && directionX == 0 && directionY == 0)  // turn to take
+            {
+                animator.SetInteger("PlayerState", 2);
+            }
+            else if (isTaking == true && (directionX != 0 || directionY != 0))  // turn to take & walk
+            {
+                animator.SetInteger("PlayerState", 3);
+            }
+            else                                                                // turn to stand
+            {
+                animator.SetInteger("PlayerState", 0);
+            }
+
+            // make sure player dont tilt because of rbody2D
+            this.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        // player animation
-        if (isTaking == false && (directionX != 0 || directionY != 0))  // turn to walk
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            animator.SetInteger("PlayerState", 1);
+            if (atMain)  // go to battle scene
+            {
+                cam.transform.position = new Vector3(0f, -12f, -10f);
+                atMain = false;
+            }
+            else  // go back to main scene
+            {
+                cam.transform.position = new Vector3(0f, 0f, -10f);
+                atMain = true;
+            }
         }
-        else if (isTaking == true && directionX == 0 && directionY == 0)  // turn to take
-        {
-            animator.SetInteger("PlayerState", 2);
-        }
-        else if (isTaking == true && (directionX != 0 || directionY != 0))  // turn to take & walk
-        {
-            animator.SetInteger("PlayerState", 3);
-        }
-        else                                                                // turn to stand
-        {
-            animator.SetInteger("PlayerState", 0);
-        }
-
-        // make sure player dont tilt because of rbody2D
-        this.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     // enable take & discard function
