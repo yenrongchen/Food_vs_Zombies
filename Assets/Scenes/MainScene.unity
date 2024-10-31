@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 80256584}
-  _foodData: {fileID: 11400000, guid: 8ea9bad9137a7c246ad96eada6157e77, type: 2}
+  _foodData: {fileID: 11400000, guid: ff707397267d0254b80a61b6c4c0320e, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 1181877658}
 --- !u!114 &80256584
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 311864204}
-  _foodData: {fileID: 11400000, guid: 05fc5689fd2e8004e847a85b0d97ac6d, type: 2}
+  _foodData: {fileID: 11400000, guid: 48bc937a85236a742bc5c275b5bc4470, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 810623219}
 --- !u!114 &311864204
@@ -2364,7 +2364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 1176607612}
-  _foodData: {fileID: 11400000, guid: fb08339c7cab19c459bc6e25e2da6436, type: 2}
+  _foodData: {fileID: 11400000, guid: ac62ddac0a0a5b643b74ae147473fa0e, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 859667751}
 --- !u!114 &1176607612
@@ -2631,7 +2631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 1243576385}
-  _foodData: {fileID: 11400000, guid: b32f504b87af0a2418de772ad7e77981, type: 2}
+  _foodData: {fileID: 11400000, guid: 7f80871a7ffc97b4ca0247a638ec8e87, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 11520270}
 --- !u!114 &1243576385
@@ -2815,7 +2815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 1262401972}
-  _foodData: {fileID: 11400000, guid: 4afc6b58c49104e47a5f513762944bde, type: 2}
+  _foodData: {fileID: 11400000, guid: 868c44a9a472b664b93a51c4dfb832c8, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 2060580938}
 --- !u!114 &1262401972
@@ -3377,7 +3377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
   _image: {fileID: 1487096682}
-  _foodData: {fileID: 11400000, guid: fb90a4cd51b3eb54f9a80e1b86722444, type: 2}
+  _foodData: {fileID: 11400000, guid: 691c5b0f78a4e1543b64c91c83cb7902, type: 2}
   _foodCnt: 0
   _cntText: {fileID: 2135844335}
 --- !u!114 &1487096682
