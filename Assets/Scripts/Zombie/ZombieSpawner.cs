@@ -11,7 +11,7 @@ public class ZombieSpawner : MonoBehaviour
     private GameObject zombieObj;
 
     [SerializeField]
-    private float waveStrengthDiff = 0.5f;  // change the strength difference between waves after wave 7
+    private float waveStrengthDiff = 1f;  // change the strength difference between waves after wave 7
 
     [SerializeField]
     private float wave1HpMultiplier = 1f;
@@ -23,10 +23,10 @@ public class ZombieSpawner : MonoBehaviour
     private float wave1AttackMultiplier = 1f;
     
     [SerializeField]
-    private float wave2HpMultiplier = 1.5f;
+    private float wave2HpMultiplier = 1.25f;
     
     [SerializeField]
-    private float wave2SpeedMultiplier = 1f;
+    private float wave2SpeedMultiplier = 1.25f;
     
     [SerializeField]
     private float wave2AttackMultiplier = 1.25f;
@@ -35,7 +35,7 @@ public class ZombieSpawner : MonoBehaviour
     private float wave3HpMultiplier = 1.5f;
     
     [SerializeField]
-    private float wave3SpeedMultiplier = 1.5f;
+    private float wave3SpeedMultiplier = 1.375f;
     
     [SerializeField]
     private float wave3AttackMultiplier = 1.5f;
@@ -58,11 +58,7 @@ public class ZombieSpawner : MonoBehaviour
     // testing
     private void Start()
     {
-        /*StartCoroutine(Spawn(spawnPoint1, 1));
-        StartCoroutine(Spawn(spawnPoint2, 1));
-        StartCoroutine(Spawn(spawnPoint3, 1));
-        StartCoroutine(Spawn(spawnPoint4, 1));
-        StartCoroutine(Spawn(spawnPoint5, 1));*/
+
     }
 
     public void spawnWave(int waveNum)
@@ -91,47 +87,54 @@ public class ZombieSpawner : MonoBehaviour
     {
         if (waveNum == 1)
         {
-            yield return spawnOneLine(spawnPoint, wave1HpMultiplier, wave1SpeedMultiplier, wave1AttackMultiplier);
+            yield return spawnOneLine(spawnPoint, wave1HpMultiplier, wave1SpeedMultiplier, wave1AttackMultiplier, waveNum);
         }
         else if (waveNum == 2)
         {
-            yield return spawnOneLine(spawnPoint, wave2HpMultiplier, wave2SpeedMultiplier, wave2AttackMultiplier);
+            yield return spawnOneLine(spawnPoint, wave2HpMultiplier, wave2SpeedMultiplier, wave2AttackMultiplier, waveNum);
         }
         else if (waveNum == 3)
         {
-            yield return spawnOneLine(spawnPoint, wave3HpMultiplier, wave3SpeedMultiplier, wave3AttackMultiplier);
+            yield return spawnOneLine(spawnPoint, wave3HpMultiplier, wave3SpeedMultiplier, wave3AttackMultiplier, waveNum);
         }
         else
         {
             switch (waveNum % 3)
             {
                 case 1:
-                    float hpMul = (waveNum - 4) / 3 * waveStrengthDiff + 2;
-                    yield return spawnOneLine(spawnPoint, hpMul, hpMul - waveStrengthDiff, hpMul - waveStrengthDiff);
+                    float hpMul = (waveNum - 4) / 3 * waveStrengthDiff * (waveNum / 2 - 1) + 2f;
+                    yield return spawnOneLine(spawnPoint, hpMul, hpMul - waveStrengthDiff, hpMul - waveStrengthDiff, waveNum);
                     break;
 
                 case 2:
-                    float speedMul = (waveNum - 5) / 3 * waveStrengthDiff + 2;
-                    yield return spawnOneLine(spawnPoint, speedMul - waveStrengthDiff, speedMul, speedMul - waveStrengthDiff);
+                    float speedMul = (waveNum - 5) / 3 * waveStrengthDiff * 0.8f + 2f;
+                    yield return spawnOneLine(spawnPoint, speedMul - waveStrengthDiff, speedMul, speedMul - waveStrengthDiff, waveNum);
                     break;
 
                 case 0:
-                    float atkMul = (waveNum - 6) / 3 * waveStrengthDiff + 2;
-                    yield return spawnOneLine(spawnPoint, atkMul - waveStrengthDiff, atkMul - waveStrengthDiff, atkMul);
+                    float atkMul = (waveNum - 6) / 3 * waveStrengthDiff + 2f;
+                    yield return spawnOneLine(spawnPoint, atkMul - waveStrengthDiff, atkMul - waveStrengthDiff, atkMul, waveNum);
                     break;
             }
         }
     }
 
-    IEnumerator spawnOneLine(Vector3 spawnPoint, float hpMul, float spdMul, float atkMul)
+    IEnumerator spawnOneLine(Vector3 spawnPoint, float hpMul, float spdMul, float atkMul, int waveNum)
     {
         float total = 0f;
         float interval = 0f;
 
         while (total <= waveTime)
         {
-            interval = Random.Range(minInterval, maxInterval);
-
+            if (waveNum < 7)
+            {
+                interval = Random.Range(minInterval, maxInterval);
+            }
+            else
+            {
+                interval = Random.Range(minInterval / 2, maxInterval / 2);
+            }
+            
             if (total + interval > waveTime)
             {
                 break;

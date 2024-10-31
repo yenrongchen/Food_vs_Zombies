@@ -31,7 +31,7 @@ public class ZombieController : MonoBehaviour
 
     // base attribute
     private float maxHP = 100f;
-    private float speed = 0.3f;
+    private float speed = 0.4f;
     private float attack = 12f;
 
     private bool isWalking = true;
@@ -152,7 +152,7 @@ public class ZombieController : MonoBehaviour
     IEnumerator changeColor()
     {
         this.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(0.07f);
+        yield return new WaitForSeconds(0.1f);
         this.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
