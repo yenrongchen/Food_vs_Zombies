@@ -13,11 +13,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float walkSpeed = 2f;
 
+    [SerializeField]
+    private Camera cam;
+
     private float directionX = 0;
 
     private float directionY = 0;
 
     private bool isTaking;
+
+    private bool atMain = true;
 
     private GameObject CurrentTaking;
 
@@ -68,6 +73,20 @@ public class PlayerController : MonoBehaviour
 
         // make sure player dont tilt because of rbody2D
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (atMain)  // go to battle scene
+            {
+                cam.transform.position = new Vector3(0f, -12f, -10f);
+                atMain = false;
+            }
+            else  // go back to main scene
+            {
+                cam.transform.position = new Vector3(0f, 0f, -10f);
+                atMain = true;
+            }
+        }
     }
 
     // enable take & discard function

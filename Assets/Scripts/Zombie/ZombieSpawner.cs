@@ -40,11 +40,11 @@ public class ZombieSpawner : MonoBehaviour
     [SerializeField]
     private float wave3AttackMultiplier = 1.5f;
 
-    private Vector3 spawnPoint1 = new Vector3(9.5f, 2.8f, 0f);
-    private Vector3 spawnPoint2 = new Vector3(9.5f, 1.3f, 0f);
-    private Vector3 spawnPoint3 = new Vector3(9.5f, -0.2f, 0f);
-    private Vector3 spawnPoint4 = new Vector3(9.5f, -1.6f, 0f);
-    private Vector3 spawnPoint5 = new Vector3(9.5f, -3.1f, 0f);
+    private Vector3 spawnPoint1 = new Vector3(9.5f, -9.2f, 0f);
+    private Vector3 spawnPoint2 = new Vector3(9.5f, -10.7f, 0f);
+    private Vector3 spawnPoint3 = new Vector3(9.5f, -12.2f, 0f);
+    private Vector3 spawnPoint4 = new Vector3(9.5f, -13.6f, 0f);
+    private Vector3 spawnPoint5 = new Vector3(9.5f, -15.1f, 0f);
 
     // testing
     private void Start()
