@@ -63,13 +63,10 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void NextWave()
+    public void SetWave(int wave)
     {
-        if (_wave < 3)
-        {
-            _wave++;
-            SetTilesbyWave(_wave);
-        }
+        _wave = wave + 1;
+        if (_wave > 3) wave = 3;
     }
 
     /* // DEBUG: press space for next wave

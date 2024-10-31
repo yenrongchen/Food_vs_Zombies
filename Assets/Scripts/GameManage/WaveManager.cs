@@ -18,13 +18,15 @@ public class WaveManager : MonoBehaviour
     private float intervalWave;
 
     private GameObject ZombieSpawner;
+    private GameObject GridManager;
     // Start is called before the first frame update
     void Start()
     {
         ZombieSpawner = GameObject.Find("ZombieSpawner");
+        GridManager = GameObject.Find("GridManager");
         intervalWave = 0;
 
-        if (ZombieSpawner == null) 
+        if (ZombieSpawner == null || GridManager == null) 
         {
             Debug.Log("ERROR in WVMG");
         }
@@ -44,6 +46,7 @@ public class WaveManager : MonoBehaviour
         {
             currentWaveNum++;
             ZombieSpawner.GetComponent<ZombieSpawner>().spawnWave(currentWaveNum);
+            GridManager.GetComponent<GridManager>().SetWave(currentWaveNum);
 
             intervalWave = INTERVAL_WAVE;
         }
