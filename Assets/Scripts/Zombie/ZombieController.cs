@@ -81,7 +81,7 @@ public class ZombieController : MonoBehaviour
 
         if (isEating)
         {
-            food.GetComponent<FoodSoldier>().Hurt((int)attack);  // NEED TO BE FIXED
+            food.GetComponent<FoodSoldier>().Hurt(attack); 
 
             if (curHP > maxHP / 2)  // eat
             {

@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 80256584}
   _foodData: {fileID: 11400000, guid: 8ea9bad9137a7c246ad96eada6157e77, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 1181877658}
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 311864204}
   _foodData: {fileID: 11400000, guid: 05fc5689fd2e8004e847a85b0d97ac6d, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 810623219}
@@ -1018,7 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1940,7 +1940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2035,7 +2035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 1176607612}
   _foodData: {fileID: 11400000, guid: fb08339c7cab19c459bc6e25e2da6436, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 859667751}
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2406,7 +2406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2500,7 +2500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 1243576385}
   _foodData: {fileID: 11400000, guid: b32f504b87af0a2418de772ad7e77981, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 11520270}
@@ -2517,7 +2517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2684,7 +2684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 1262401972}
   _foodData: {fileID: 11400000, guid: 4afc6b58c49104e47a5f513762944bde, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 2060580938}
@@ -2701,7 +2701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2891,7 +2891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58730d4264bbaab4db40cdd6fefd1c04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52bdffedc1f4d1e499ab88864d4413a0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2974,7 +2974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2071678515}
-  _image: {fileID: 0}
+  _image: {fileID: 1487096682}
   _foodData: {fileID: 11400000, guid: fb90a4cd51b3eb54f9a80e1b86722444, type: 2}
   _foodCnt: 2
   _cntText: {fileID: 2135844335}
@@ -2991,7 +2991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3725,7 +3725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3954,6 +3954,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80640d6096e11a4f9ddb00f84b2d35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dragDrops:
+  - {fileID: 1262401971}
+  - {fileID: 80256583}
+  - {fileID: 1243576384}
+  - {fileID: 1487096681}
+  - {fileID: 1176607611}
+  - {fileID: 311864203}
 --- !u!1 &2135844332
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,7 +4027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 1}
+  m_Color: {r: 0.254717, g: 0.18105155, b: 0.1525899, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
