@@ -11,7 +11,7 @@ public class ZombieSpawner : MonoBehaviour
     private GameObject zombieObj;
 
     [SerializeField]
-    private float hpWaveStrengthDiff = 2.25f;
+    private float hpWaveStrengthDiff = 2.75f;
 
     [SerializeField]
     private float spdWaveStrengthDiff = 0.8f;
@@ -118,14 +118,7 @@ public class ZombieSpawner : MonoBehaviour
                     break;
 
                 case 2:
-                    if (waveNum == 8)
-                    {
-                        hpMul = 2.75f;
-                    }
-                    else
-                    {
-                        speedMul = (waveNum - 5) / 3 * spdWaveStrengthDiff + 2f;
-                    }
+                    speedMul = (waveNum - 5) / 3 * spdWaveStrengthDiff + 2f;
                     yield return spawnOneLine(spawnPoint, hpMul, speedMul, atkMul, waveNum);
                     break;
 
