@@ -1,17 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
-    [SerializeField] GameObject helpScreen;
+    [SerializeField]
+    private GameObject helpScreen;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && helpScreen.activeSelf)
-        {
-            helpScreen.SetActive(false);
-        }
-    }
     public void StartGame()
     {
         SceneManager.LoadScene("MainScene");
@@ -20,5 +15,10 @@ public class GameStart : MonoBehaviour
     public void GameHelp()
     {
         helpScreen.SetActive(true);
+    }
+
+    public void closeHelp()
+    {
+        helpScreen.SetActive(false);
     }
 }
