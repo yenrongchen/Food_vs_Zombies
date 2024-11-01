@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Tile : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
