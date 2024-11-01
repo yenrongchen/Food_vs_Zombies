@@ -4,15 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
-    [SerializeField] GameObject helpScreen;
+    [SerializeField]
+    private GameObject helpScreen;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && helpScreen.activeSelf)
-        {
-            closeHelp();
-        }
-    }
     public void StartGame()
     {
         SceneManager.LoadScene("MainScene");
