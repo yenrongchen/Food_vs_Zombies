@@ -1460,8 +1460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWaveNum: 0
-  INTERVAL_WAVE: 36
-  initInterval: 18
+  INTERVAL_WAVE: 35
+  initInterval: 20
   intervalWave: 0
   animationDuration: 1.5
   oneRow: {fileID: 251863992}
@@ -3033,8 +3033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePrefab: {fileID: 5549323388112781331, guid: fd6521d4adbf08f46940ee39aeaab295, type: 3}
-  hpWaveStrengthDiff: 2
-  spdWaveStrengthDiff: 0.75
+  hpWaveStrengthDiff: 2.25
+  spdWaveStrengthDiff: 0.8
   atkWaveStrengthDiff: 1
   wave1HpMultiplier: 1
   wave1SpeedMultiplier: 1
