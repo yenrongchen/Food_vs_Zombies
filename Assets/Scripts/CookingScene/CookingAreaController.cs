@@ -26,7 +26,7 @@ public class CookingAreaController : MonoBehaviour
     [SerializeField]
     private float TIMEINTERVALCOOK = 8;
     [SerializeField]
-    private float TIMEINTERVALCHOP = 8;
+    private float TIMEINTERVALCHOP = 6;
 
     private float timeIntervalCookRice;
     private float timeIntervalCook;
