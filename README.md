@@ -18,8 +18,8 @@
 <br>
 
 流程圖:
-
-[work flow](https://lucid.app/lucidchart/876a7f8c-c1a8-438e-9550-ee6387eb9d50/edit?invitationId=inv_0bd22830-a199-4103-828c-2af9cdf2d3dd&page=0_0#)
+[Work flow chart](https://lucid.app/lucidchart/876a7f8c-c1a8-438e-9550-ee6387eb9d50/edit?invitationId=inv_0bd22830-a199-4103-828c-2af9cdf2d3dd&page=0_0#)
+<br>
 
 ## 注意事項
 
